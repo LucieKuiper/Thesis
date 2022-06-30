@@ -1,0 +1,87 @@
+{% extends "layout.html" %}
+
+
+{% block content %}
+<script type="text/javascript" src="../static/script.js"></script>
+<script type = "text/javascript">
+
+
+function changeAnswer(id) {
+	for (let i = 0; i < ANSWER_IDS.length; i++) {
+		let question = document.getElementById(ANSWER_IDS[i]);
+		if (question.classList.contains("active_answer")) {
+			question.classList.remove("active_answer");
+		}
+	}
+
+	document.getElementById(ANSWER_IDS[id]).classList.add("active_answer");
+	if (id == 0){
+	    document.getElementById("answer").value = "A"
+	}
+	else if (id == 1){
+	    document.getElementById("answer").value = "B"
+	}
+
+	else if (id == 2){
+	    document.getElementById("answer").value = "C"
+	}
+
+
+	else if (id == 3){
+	    document.getElementById("answer").value = "D"
+	}
+
+	else {
+	    document.getElementById("answer").value = "No Answer"
+	}
+
+}
+</script>
+
+
+<title>Questions</title>
+<h1 style="text-align:center;">Questions</h1>
+<div class="content">
+    <div>
+        <h2>Context</h2>
+        <p>{{context}}
+        </p>
+    </div>
+    <div>
+        <h2>Question {{counter +1}}/30</h2>
+        <p>{{question}}
+        </p>
+    </div>
+
+
+
+    <div>
+        <div class="col-container">
+            <strong style="font-size:20px;">A</strong>
+            <p class="answer-left" id="answer_A" onclick="changeAnswer(0);" >
+                {{answer0}}
+            </p>
+            <strong style="font-size:20px;">B</strong>
+            <p class="answer-right" id="answer_B" onclick="changeAnswer(1);">
+                    {{answer1}}
+                </p>
+        </div>
+        <div class="col-container">
+            <strong style="font-size:20px;">C</strong>
+            <p class="answer-left" id="answer_C" onclick="changeAnswer(2);">
+                {{answer2}}
+            </p>
+            <strong style="font-size:20px;">D</strong>
+            <p class="answer-right" id="answer_D" onclick="changeAnswer(3);">
+                {{answer3}}
+            </p>
+        </div>
+    </div>
+</div>
+
+<form method="POST" action="">
+    {{ form.hidden_tag()}}
+    <input type="hidden" id="answer" name="answer">
+    {{ form.submit(class="btn btn-outline-dark") }}
+</form>
+{% endblock content %}
