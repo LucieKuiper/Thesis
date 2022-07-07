@@ -1,0 +1,84 @@
+{% extends "layout.html" %}
+
+
+{% block content %}
+<script type="text/javascript">
+function changeAIAnswer(id) {
+	for (let i = 0; i < AIANSWER_IDS.length; i++) {
+		let question = document.getElementById(AIANSWER_IDS[i]);
+		if (question.classList.contains("active_AIanswer")) {
+			question.classList.remove("active_AIanswer");
+		}
+	}
+
+	document.getElementById(AIANSWER_IDS[id]).classList.add("active_AIanswer");
+	if (id == 0){
+	    document.getElementById("AIanswer").value = "A"
+	}
+	else if (id == 1){
+	    document.getElementById("AIanswer").value = "B"
+	}
+
+	else if (id == 2){
+	    document.getElementById("AIanswer").value = "C"
+	}
+
+
+	else if (id == 3){
+	    document.getElementById("AIanswer").value = "D"
+	}
+
+	else {
+	    document.getElementById("AIanswer").value = "No Answer"
+	}
+
+}
+</script>
+
+
+<title>Questions</title>
+<h1 style="text-align:center;">Questions {{counter +1}}/4</h1>
+<div class="content">
+    <div>
+        <h2>Context</h2>
+        <p>{{context}}
+        </p>
+    </div>
+    <div>
+        <h2>Question</h2>
+        <p>{{question}}
+        </p>
+    </div>
+
+
+
+    <div>
+        <div class="col-container">
+            <strong style="font-size:20px;">A</strong>
+            <p class="answer-left" id="AIanswer_A" onclick="changeAIAnswer(0);" >
+                {{answer0}}
+            </p>
+            <strong style="font-size:20px;">B</strong>
+            <p class="answer-right" id="AIanswer_B" onclick="changeAIAnswer(1);">
+                {{answer1}}
+            </p>
+        </div>
+        <div class="col-container">
+            <strong style="font-size:20px;">C</strong>
+            <p class="answer-left" id="AIanswer_C" onclick="changeAIAnswer(2);">
+                {{answer2}}
+            </p>
+            <strong style="font-size:20px;">D</strong>
+            <p class="answer-right" id="AIanswer_D" onclick="changeAIAnswer(3);">
+                {{answer3}}
+            </p>
+        </div>
+    </div>
+</div>
+
+<form method="POST" action="">
+    {{ form.hidden_tag()}}
+    <input type="hidden" id="AIanswer" name="AIanswer">
+    {{ form.submit(class="btn btn-outline-dark") }}
+</form>
+{% endblock content %}
