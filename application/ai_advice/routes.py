@@ -10,7 +10,7 @@ from application.main.forms import LoginForm, OtherForm
 
 
 ai_advice = Blueprint('ai_advice', __name__)
-questions_list = load_data("\static\AIadvice.csv")  # CSV list with data
+questions_list = load_data("AIadvice.csv")  # CSV list with data
 
 
 # Route to create user from userID given by prolific and continues to next page

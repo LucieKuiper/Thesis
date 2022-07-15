@@ -18,11 +18,23 @@ from application.pilot.models import User
 from application.ai_advice.models import AIUser
 
 
+
+
 # Load in CSV file from relative source
-def load_data(file="\static\data.csv"):
+def load_data(file="data.csv"):
     # source location of current file
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    STATIC_URL = '/static/'
+
+# Extra places for collectstatic to find static files.
+    STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+    )
+
     __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
-    df = pd.read_csv(__location__ + file)
+    df = pd.read_csv(os.path.join(STATICFILES_DIRS, file),)
     return df
 
 
