@@ -31,10 +31,10 @@ def load_data(file="data.csv"):
 # Extra places for collectstatic to find static files.
     STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
-    )
+)
 
     __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
-    df = pd.read_csv(os.path.join(STATICFILES_DIRS, file),)
+    df = pd.read_csv(os.path.join(STATICFILES_DIRS, file))
     return df
 
 
