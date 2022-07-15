@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+<!-- <link rel="stylesheet" href="./application/static/main.css"> -->
+{% block content %}
+<title>Introduction</title>
+<h1 style="text-align:center">Introduction Experiment</h1>
+<p style="text-align:center; font-size:20px; padding: 1em;" > Welcome to this experiment.
+    In this experiment you will be asked to answer 32 multiple choice logic questions.
+    You can only select one answer, chose the one that answers the question the best.
+    After selecting the answer you can click confirm and continue to go to the next question.
+    By clicking confirm and continue on this page you confirm that you are participating in this experiment and know that your answers are recorded for research. </p>
+<form method="POST" action="">
+    {{ form.submit(class="btn btn-outline-dark") }}
+</form>
+
+
+{% endblock content%}

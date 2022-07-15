@@ -1,0 +1,94 @@
+{% extends "layout.html" %}
+<script type = "text/javascript">
+    function msgprint() {
+        alert("You are Successfully Called the JavaScript function");
+    }
+</script>
+
+{% block content %}
+<script type="text/javascript" src="../static/script.js"></script>
+<script type = "text/javascript">
+
+
+function changeAnswer(id) {
+	for (let i = 0; i < ANSWER_IDS.length; i++) {
+		let question = document.getElementById(ANSWER_IDS[i]);
+		if (question.classList.contains("active_answer")) {
+			question.classList.remove("active_answer");
+		}
+	}
+
+	document.getElementById(ANSWER_IDS[id]).classList.add("active_answer");
+
+}
+</script>
+<script type = "text/javascript">
+
+ function getActiveAnswer() {
+    var current_answer = null;
+	for (let i = 0; i < ANSWER_IDS.length; i++) {
+		let question = document.getElementById(ANSWER_IDS[i]);
+		if (question.classList.contains("active_answer")) {
+			//return ANSWER_IDS[i];
+			alert(ANSWER_IDS[i]);
+			//document.write(ANSWER_IDS[i]);
+		}
+	}
+
+	//return null;
+}
+</script>
+
+
+<title>Questions</title>
+<h1 style="text-align:center">Questions</h1>
+<div>
+    <h2>Context</h2>
+    <p>{{context}}
+    </p>
+</div>
+<div>
+    <h2>Question</h2>
+    <p>{{question}}
+    </p>
+</div>
+
+
+<form method="POST" action="">
+
+    {% for subfield in form.answer %}
+    <tr>
+        <div class="col-container">
+            {% if loop.index == 1 %}
+            <p class="answer-left" id="answer_A" onclick="changeAnswer(0);" >
+                {{subfield}}
+                {{answer0}}
+            </p>
+            {% elif loop.index == 2 %}
+            <p class="answer-right" id="answer_B" onclick="changeAnswer(1);">
+                {{subfield}}
+                {{answer1}}
+            </p>
+            {% endif %}
+        </div>
+        <div class="col-container">
+            {% if loop.index == 3 %}
+            <p class="answer-left" id="answer_C" onclick="changeAnswer(2);">
+                {{subfield}}
+                {{answer2}}
+            </p>
+            {% elif loop.index == 4 %}
+            <p class="answer-right" id="answer_D" onclick="changeAnswer(3);">
+                {{subfield}}
+                {{answer3}}
+            </p>
+            {%endif%}
+        </div>
+    </tr>
+    {%endfor%}
+
+
+    {{ form.hidden_tag()}}
+    {{ form.submit(class="btn btn-outline-info") }}
+</form>
+{% endblock content %}
