@@ -11,16 +11,12 @@ db = SQLAlchemy(app)
 # Start Loging manager
 login_manager = LoginManager(app)
 
-
 # Import Users to be able to create database
 from application.main.models import User, PilotUser, AIUser
 
 
-
-
-
 # Load in CSV file from relative source
-def load_data(file="\static\data.csv"):
+def load_data(file="/static/data.csv"):
     # source location of current file
     __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
     df = pd.read_csv(__location__ + file)
@@ -35,7 +31,6 @@ if __name__ == '__main__':
 from application.pilot.routes import pilot
 from application.main.routes import main
 from application.ai_advice.routes import ai_advice
-
 
 app.register_blueprint(pilot)
 app.register_blueprint(main)
