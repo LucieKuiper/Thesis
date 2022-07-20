@@ -1,22 +1,24 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    {% if title %}
-    <title> {{ title }}</title>
-    {% else %}
-    <title>Experiment</title>
-    {% endif %}
-</head>
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+
+        {% if title %}
+        <title> {{ title }}</title>
+        {% else %}
+        <title>Experiment</title>
+        {% endif %}
+    </head>
 <body>
 <header class="site-header"></header>
 <main role="main" class="container">
@@ -53,7 +55,7 @@
                     If you wish to exit the experiment you can just close the browser, you will <strong>not</strong> be able to continue at another time.<br>
                     If any questions still arise you can contact me at l.a.kuiper@student.tudelft.nl.
 
-                    </p>
+                </p>
             </div>
         </div>
     </div>

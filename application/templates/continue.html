@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+<!-- <link rel="stylesheet" href="./application/static/main.css"> -->
+{% block content %}
+<title>Continuation of Experiment</title>
+<h1 style="text-align:center">Continue Experiment</h1>
+<p style="text-align:center; font-size:20px; padding: 1em;" > You are going to continue the experiment you have worked on before.
+    In this experiment you are asked to answer 32 multiple choice logic questions. You can continue from where you left off.
+    You can only select one answer, chose the one that answers the question the best.
+    After selecting the answer you can click confirm and continue to go to the next question.
+    By clicking confirm and continue on this page you confirm that you are participating in this experiment and know that your answers are recorded for research. </p>
+<form method="POST" action="">
+    {{ form.submit(class="btn btn-outline-dark") }}
+</form>
+
+
+{% endblock content%}

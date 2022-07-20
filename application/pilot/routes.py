@@ -2,38 +2,53 @@ from flask import Blueprint
 from flask import render_template, url_for, redirect, request
 from application import load_data, db
 from flask_login import login_user, current_user, login_required
-from application.pilot.models import User
+from application.main.models import User, PilotUser
 from application.main.forms import LoginForm, ShortForm
 
 
-pilot = Blueprint('pilot', __name__)
+pilot = Blueprint('pilot', __name__, url_prefix='/dke')
 questions_list = load_data()  # CSV list with data
 
 
 # Route to create user from userID given by prolific and continues to next page
-@pilot.route("/dke/", methods=['GET', 'POST'])
+@pilot.route("/", methods=['GET', 'POST'])
 def start():
-    userid = request.args.get('PROLIFIC_PID')
-    exsits = User.query.filter_by(userid=userid).first()
+    username = request.args.get('PROLIFIC_PID')
+    exsits = User.query.filter_by(username=username).first()
     # Check if new account and needs to be created otherwise show that already done survey
     if exsits is None:
-        user = User(userid=userid)
+        user = User(username=username, pilot_started=True)
         db.session.add(user)
         db.session.commit()
         login_user(user)
+        pilot_user = PilotUser(username=username, pilot_user=current_user)
+        db.session.add(pilot_user)
+        db.session.commit()
         return redirect(url_for('pilot.introduction'))
     else:
-        return redirect(url_for('pilot.done'))
+        user = User.query.filter_by(username=username).first()
+        login_user(user)
+        if user.pilot_done:
+            return redirect(url_for('pilot.done'))
+        else:
+            if user.pilot_stated:
+                return redirect(url_for('pilot.go_on'))
+            else:
+                current_user.pilot_started = True
+                pilot_user = PilotUser(username=username, pilot_user=current_user)
+                db.session.add(pilot_user)
+                db.session.commit()
+                return redirect(url_for('pilot.introduction'))
 
 
 # Page for users that have done survey already
-@pilot.route("/dke/done")
+@pilot.route("/done")
 def done():
     return render_template('done.html')
 
 
 # Introduction with information
-@pilot.route("/dke/introduction", methods=['GET', 'POST'])
+@pilot.route("/introduction", methods=['GET', 'POST'])
 @login_required
 def introduction():
     form = LoginForm()
@@ -43,12 +58,15 @@ def introduction():
 
 
 # Route to iterate over all questions
-@pilot.route("/dke/questions", methods=['POST', 'GET'])
+@pilot.route("//questions", methods=['POST', 'GET'])
 @login_required
 def questions():
     form = ShortForm()
-    counter = current_user.task_counter  # counter that tracks at which question the user is
+    user = PilotUser.query.filter_by(user_id=current_user.id).first()
+    counter = user.task_counter  # counter that tracks at which question the user is
     if counter > 31:
+        user.pilot_done = True
+        db.session.commit()
         return redirect(url_for('pilot.final'))
     # Load in questions from data set
     data_context = questions_list.iloc[counter][0]
@@ -60,8 +78,8 @@ def questions():
 
     # Check if question has been answered and store answer
     if form.validate_on_submit():
-        setattr(current_user, "question{}".format(counter), form.answer.data)
-        current_user.task_counter = counter + 1
+        setattr(user, "question{}".format(counter), form.answer.data)
+        user.task_counter = counter + 1
         db.session.commit()
         return redirect(url_for('pilot.questions'))
     return render_template('questions.html', form=form, context=data_context, question=data_question,
@@ -69,7 +87,17 @@ def questions():
                            answer1=data_answer1, answer2=data_answer2, answer3=data_answer3, counter=counter, list=list)
 
 
+@pilot.route("/continue", methods=['GET', 'POST'])
+@login_required
+def go_on():
+    form = LoginForm()
+    if request.method == 'POST':
+        return redirect(url_for('pilot.questions'))
+    return render_template('continue.html', form=form)
+
+
+
 # Route final page that shows user the survey is done
-@pilot.route("/dke/end", methods=['GET', 'POST'])
+@pilot.route("/end", methods=['GET', 'POST'])
 def final():
     return render_template('final.html')

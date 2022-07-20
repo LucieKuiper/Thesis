@@ -61,12 +61,10 @@ function changeAnswer(id) {
         <div class="col-container">
             {% if loop.index == 1 %}
             <p class="answer-left" id="answer_A" onclick="changeAnswer(0);" >
-                {{subfield}}
                 {{answer0}}
             </p>
             {% elif loop.index == 2 %}
             <p class="answer-right" id="answer_B" onclick="changeAnswer(1);">
-                {{subfield}}
                 {{answer1}}
             </p>
             {% endif %}
@@ -74,12 +72,10 @@ function changeAnswer(id) {
         <div class="col-container">
             {% if loop.index == 3 %}
             <p class="answer-left" id="answer_C" onclick="changeAnswer(2);">
-                {{subfield}}
                 {{answer2}}
             </p>
             {% elif loop.index == 4 %}
             <p class="answer-right" id="answer_D" onclick="changeAnswer(3);">
-                {{subfield}}
                 {{answer3}}
             </p>
             {%endif%}
@@ -88,7 +84,6 @@ function changeAnswer(id) {
     {%endfor%}
 
 
-    {{ form.hidden_tag()}}
-    {{ form.submit(class="btn btn-outline-info") }}
+
 </form>
 {% endblock content %}
