@@ -64,7 +64,7 @@ def questions():
     user = PilotUser.query.filter_by(user_id=current_user.id).first()
     counter = user.task_counter  # counter that tracks at which question the user is
     if counter > 31:
-        user.pilot_done = True
+        current_user.pilot_done = True
         db.session.commit()
         return redirect(url_for('pilot.final'))
     # Load in questions from data set
