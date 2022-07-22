@@ -1,5 +1,4 @@
-from flask import Blueprint
-from flask import render_template, url_for, redirect, request
+from flask import render_template, url_for, redirect, request, flash, Blueprint
 from application import load_data, db
 from flask_login import login_user, current_user, login_required
 from application.main.models import User, AIUser
@@ -82,6 +81,8 @@ def questions():
         user.task_counter = counter + 1
         db.session.commit()
         return redirect(url_for('ai_advice.questions'))
+    if request.method == 'POST':
+        flash('No answer found, please select an answer', 'danger')
     return render_template('AIquestions.html', form=form, context=data_context, question=data_question,
                            answer0=data_answer0, answer1=data_answer1, answer2=data_answer2, answer3=data_answer3,
                            counter=counter, list=list, advice=data_advice)

@@ -77,11 +77,10 @@ def questions():
 
     # Check if question has been answered and store answer
     if form.validate_on_submit():
-        if form.answer.data == 'A' or 'B' or 'C' or 'D':
-            setattr(user, "question{}".format(counter), form.answer.data)
-            user.task_counter = counter + 1
-            db.session.commit()
-            return redirect(url_for('pilot.questions'))
+        setattr(user, "question{}".format(counter), form.answer.data)
+        user.task_counter = counter + 1
+        db.session.commit()
+        return redirect(url_for('pilot.questions'))
     if request.method == 'POST':
         flash('No answer found, please select an answer', 'danger')
 
