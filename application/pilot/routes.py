@@ -1,5 +1,4 @@
-from flask import Blueprint
-from flask import render_template, url_for, redirect, request
+from flask import render_template, url_for, redirect, request, Blueprint, flash
 from application import load_data, db
 from flask_login import login_user, current_user, login_required
 from application.main.models import User, PilotUser
@@ -31,7 +30,7 @@ def start():
         if user.pilot_done:
             return redirect(url_for('pilot.done'))
         else:
-            if user.pilot_stated:
+            if user.pilot_started:
                 return redirect(url_for('pilot.go_on'))
             else:
                 current_user.pilot_started = True
@@ -78,10 +77,14 @@ def questions():
 
     # Check if question has been answered and store answer
     if form.validate_on_submit():
-        setattr(user, "question{}".format(counter), form.answer.data)
-        user.task_counter = counter + 1
-        db.session.commit()
-        return redirect(url_for('pilot.questions'))
+        if form.answer.data == 'A' or 'B' or 'C' or 'D':
+            setattr(user, "question{}".format(counter), form.answer.data)
+            user.task_counter = counter + 1
+            db.session.commit()
+            return redirect(url_for('pilot.questions'))
+    if request.method == 'POST':
+        flash('No answer found, please select an answer', 'danger')
+
     return render_template('questions.html', form=form, context=data_context, question=data_question,
                            answer0=data_answer0,
                            answer1=data_answer1, answer2=data_answer2, answer3=data_answer3, counter=counter, list=list)
