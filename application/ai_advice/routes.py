@@ -76,11 +76,13 @@ def questions():
     data_advice = questions_list.iloc[counter][7]
 
     # Check if question has been answered and store answer
-    if form.validate_on_submit():
+    if form.validate_on_submit() and (form.answer.data == 'A' or form.answer.data == 'B' or form.answer.data == 'C'
+                                      or form.answer.data == 'D'):
         setattr(user, "question{}".format(counter), form.answer.data)
         user.task_counter = counter + 1
         db.session.commit()
         return redirect(url_for('ai_advice.questions'))
+    # Gives warning when form is submitted with no answer in place
     if request.method == 'POST':
         flash('No answer found, please select an answer', 'danger')
     return render_template('AIquestions.html', form=form, context=data_context, question=data_question,
@@ -88,7 +90,7 @@ def questions():
                            counter=counter, list=list, advice=data_advice)
 
 
-# Introduction with information
+# Logins users who try to continue later on and allows to start from where they left off
 @ai_advice.route("/continue", methods=['GET', 'POST'])
 @login_required
 def go_on():
