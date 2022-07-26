@@ -1,3 +1,5 @@
+let ANSWER_IDS = ['answer_A', 'answer_B', 'answer_C', 'answer_D'];
+
 function changeAnswer(id) {
 	for (let i = 0; i < ANSWER_IDS.length; i++) {
 		let question = document.getElementById(ANSWER_IDS[i]);
@@ -7,24 +9,9 @@ function changeAnswer(id) {
 	}
 
 	document.getElementById(ANSWER_IDS[id]).classList.add("active_answer");
-	if (id == 0){
-	    document.getElementById("answer").value = "A"
-	}
-	else if (id == 1){
-	    document.getElementById("answer").value = "B"
-	}
-
-	else if (id == 2){
-	    document.getElementById("answer").value = "C"
-	}
+	answers = ['A', 'B', 'C', 'D']
+    document.getElementById("answer").value = answers[id]
 
 
-	else if (id == 3){
-	    document.getElementById("answer").value = "D"
-	}
-
-	else {
-	    document.getElementById("answer").value = "No Answer"
-	}
 
 }
