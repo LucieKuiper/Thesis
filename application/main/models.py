@@ -12,7 +12,7 @@ def load_user(user_id):
 class User(db.Model, UserMixin):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(20), nullable=False, unique=True)
+    username = db.Column(db.String(50), nullable=False, unique=True)
     pilot_done = db.Column(db.Boolean, default=False)
     pilot_started = db.Column(db.Boolean, default=False)
     ai_done = db.Column(db.Boolean, default=False)
@@ -25,7 +25,7 @@ class PilotUser(db.Model, UserMixin):
     __tablename__ = 'pilot_user'
 
     pilot_id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(20), nullable=False, unique=True)
+    username = db.Column(db.String(50), nullable=False, unique=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     task_counter = db.Column(db.Integer, default=0)
     question_order = db.Column(db.Integer, default=0)
@@ -69,7 +69,7 @@ class PilotUser(db.Model, UserMixin):
 class AIUser(db.Model, UserMixin):
     __tablename__ = 'AIuser'
     ai_id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(20), nullable=False, unique=True)
+    username = db.Column(db.String(50), nullable=False, unique=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     task_counter = db.Column(db.Integer, default=0)
     question0 = db.Column(db.String(1), nullable=True, default=None)
