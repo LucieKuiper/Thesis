@@ -28,6 +28,7 @@ class PilotUser(db.Model, UserMixin):
     username = db.Column(db.String(20), nullable=False, unique=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     task_counter = db.Column(db.Integer, default=0)
+    question_order = db.Column(db.Integer, default=0)
     question0 = db.Column(db.String(1), nullable=True, default=None)
     question1 = db.Column(db.String(1), nullable=True, default=None)
     question2 = db.Column(db.String(1), nullable=True, default=None)
