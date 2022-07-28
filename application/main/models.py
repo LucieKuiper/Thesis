@@ -61,6 +61,7 @@ class PilotUser(db.Model, UserMixin):
     question29 = db.Column(db.String(1), nullable=True, default=None)
     question30 = db.Column(db.String(1), nullable=True, default=None)
     question31 = db.Column(db.String(1), nullable=True, default=None)
+    question32 = db.Column(db.String(1), nullable=True, default=None)
 
     def __repr__(self):
         return f"user('{self.username}')"
