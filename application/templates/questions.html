@@ -14,7 +14,7 @@
         </p>
     </div>
     <div>
-        <h2>Question {{counter +1}}/33</h2>
+        <h2>Question {{counter +1}}/30</h2>
         <p>{{question}}
         </p>
     </div>
@@ -48,6 +48,7 @@
 <form method="POST" action="">
     {{ form.hidden_tag()}}
     <input type="hidden" id="answer" name="answer">
+    {{ form.confidence }}
     {{ form.submit(class="btn btn-outline-dark") }}
 </form>
 {% endblock content %}

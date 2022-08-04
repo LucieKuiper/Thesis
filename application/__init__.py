@@ -16,7 +16,7 @@ from application.main.models import User, PilotUser, AIUser
 
 
 # Load in CSV file from relative source
-def load_data(file="/static/data.csv"):
+def load_data(file="/static/data_no_ac.csv"):
     # source location of current file
     __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
     df = pd.read_csv(__location__ + file)
