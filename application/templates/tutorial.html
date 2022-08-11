@@ -9,7 +9,7 @@
 <h1 style="text-align:center;">Questions</h1>
 <div class="ai-advice">
     <p style="font-size:20px;"><strong>AI advice</strong><br></p>
-       <p style="font-size:30px;"> {{advice}}</p>
+    <p style="font-size:30px;">{{advice}}</p>
 
 </div>
 
@@ -30,34 +30,36 @@
     <div>
         <div class="col-container">
             <strong style="font-size:20px;">A</strong>
-            <p class="answer-left" id="answer_A" onclick="changeAnswer(0);" >
+            <p class="answer-left">
                 {{answer0}}
             </p>
             <strong style="font-size:20px;">B</strong>
-            <p class="answer-right" id="answer_B" onclick="changeAnswer(1);">
+            <p class="answer-right">
                 {{answer1}}
             </p>
         </div>
         <div class="col-container">
             <strong style="font-size:20px;">C</strong>
-            <p class="answer-left" id="answer_C" onclick="changeAnswer(2);">
+            <p class="answer-left">
                 {{answer2}}
             </p>
             <strong style="font-size:20px;">D</strong>
-            <p class="answer-right" id="answer_D" onclick="changeAnswer(3);">
+            <p class="answer-right">
                 {{answer3}}
             </p>
         </div>
     </div>
     <div>
-        <h4>previous answer</h4>
+        <h4>Your answer</h4>
         <strong><p style="font-size:17px;"> {{old_answer}}
         </p></strong>
     </div>
+
 </div>
+<p class="tutorial"> {{tutorial_ai}} </p>
+
 <form method="POST" action="">
     {{ form.hidden_tag()}}
-    <input type="hidden" id="answer" name="answer">
     {{ form.submit(class="btn btn-outline-dark") }}
 </form>
 
@@ -83,6 +85,25 @@
     float: right;
     width: 15%;
   }
+
+  .answer-right{
+     border: 3px solid White;
+  }
+
+  .answer-left{
+     border: 3px solid White;
+  }
+
+
+  .tutorial {
+    border: 3px solid #0C2340;
+    border-radius: 10px;
+    margin-left: 4px;
+    min-height: 100px;
+    height:auto;
+    background-color: #0C2340;
+    color: white;
+    }
 
 
 </style>

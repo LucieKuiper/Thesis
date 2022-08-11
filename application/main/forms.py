@@ -12,8 +12,7 @@ class ShortForm(FlaskForm):
 
 class OtherForm(FlaskForm):
     answer = StringField('Answer', validators=[DataRequired()])
-    submit = SubmitField('Confirm old answer')
-    submit_AI = SubmitField('Confirm AI answer')
+    submit = SubmitField('Confirm and Continue')
 
 
 class LoginForm(FlaskForm):

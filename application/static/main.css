@@ -188,6 +188,22 @@ input[type=submit] { align-self: start; min-width: 10em; }
     display: flex;
     width: 100%;
   }
+  .ai-advice{
+    text-align:center;
+    float:right;
+    background: #C41E3A;
+    color: #FFFAFA;
+    border: 3px solid #C41E3A;
+    border-radius: 10px;
+    margin-left: 4px;
+    padding-left: 7px;
+    padding-right: 5px;
+    margin-top: 50px;
+    min-height: 100px;
+    height:auto;
+    float: right;
+    width: 15%;
+    }
 
 
 }
