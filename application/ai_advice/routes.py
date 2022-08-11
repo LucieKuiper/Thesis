@@ -115,7 +115,7 @@ def AIAdvice():
         setattr(user, "advice{}".format(counter), form.answer.data)
         db.session.commit()
         if 5 < counter < 10:
-            if getattr(user, "question{}".format(counter)) == questions_list.iloc[counter][7]:
+            if getattr(user, "advice{}".format(counter)) == questions_list.iloc[counter][7]:
                 user.task_counter = counter + 1
                 db.session.commit()
                 return redirect(url_for('ai_advice.correct'))
