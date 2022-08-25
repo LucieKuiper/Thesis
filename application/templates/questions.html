@@ -14,7 +14,7 @@
         </p>
     </div>
     <div>
-        <h2>Question {{counter +1}}/16</h2>
+        <h2>Question {{counter +1}}/19</h2>
         <p>{{question}}
         </p>
     </div>
@@ -49,6 +49,6 @@
     {{ form.hidden_tag()}}
     <input type="hidden" id="answer" name="answer">
     {{ form.confidence }}
-    {{ form.submit(class="btn btn-outline-dark") }}
+    {{ form.submit(class="btn btn-success btn-block") }}
 </form>
 {% endblock content %}

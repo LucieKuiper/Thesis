@@ -1,0 +1,191 @@
+{% extends "layout.html" %}
+
+
+{% block content %}
+
+<script type = "text/javascript">
+let SURVEY = ['answer_0', 'answer_1', 'answer_2', 'answer_3', 'answer_4', 'answer_5', 'answer_6'];
+
+    function surveySelf(id) {
+        for (let i = 0; i < SURVEY.length; i++) {
+            let question = document.getElementById(SURVEY[i]);
+            if (question.classList.contains("active_survey_self")) {
+                question.classList.remove("active_survey_self");
+            }
+        }
+      document.getElementById(SURVEY[id]).classList.add("active_survey_self");
+      answers = ['0', '1', '2', '3', '4', '5', '6']
+      document.getElementById("self").value = answers[id]
+}
+
+let SURVEY_OTHER = ['other_0', 'other_1', 'other_2', 'other_3', 'other_4', 'other_5', 'other_6'];
+
+function surveyOther(id) {
+	for (let i = 0; i < SURVEY_OTHER.length; i++) {
+		let question = document.getElementById(SURVEY_OTHER[i]);
+		if (question.classList.contains("active_survey_other")) {
+			question.classList.remove("active_survey_other");
+		}
+	}
+	document.getElementById(SURVEY_OTHER[id]).classList.add("active_survey_other");
+	others = ['0', '1', '2', '3', '4', '5', '6']
+    document.getElementById("other").value = others[id]
+}
+
+
+
+</script>
+
+
+
+<title>Questions</title>
+<h1 style="text-align:center;">Survey</h1>
+<br>
+<p style="font-size:20px;">From the previous 6 questions, how many questions do you estimate to have answered correct?</p>
+
+    <div class="col-container">
+         <p class="survey_answer" id="answer_0" onclick="surveySelf(0);" >
+            0
+            </p>
+            <p class="survey_answer" id="answer_1" onclick="surveySelf(1);" >
+                1
+            </p>
+            <p class="survey_answer" id="answer_2" onclick="surveySelf(2);">
+                2
+            </p>
+            <p class="survey_answer" id="answer_3" onclick="surveySelf(3);">
+                3
+            </p>
+            <p class="survey_answer" id="answer_4" onclick="surveySelf(4);">
+                4
+            </p>
+            <p class="survey_answer" id="answer_5" onclick="surveySelf(5);">
+                5
+            </p>
+            <p class="survey_answer" id="answer_6" onclick="surveySelf(6);">
+                6
+            </p>
+    </div>
+
+<br><br>
+<p style="font-size:20px;">From the previous 6 questions, how many questions on <strong>average</strong> do you estimate <strong>your peers</strong> to have answered correct?</p>
+    <div class="col-container">
+        <p class="survey_answer" id="other_0" onclick="surveyOther(0);" >
+            0
+        </p>
+        <p class="survey_answer" id="other_1" onclick="surveyOther(1);" >
+            1
+        </p>
+        <p class="survey_answer" id="other_2" onclick="surveyOther(2);">
+            2
+        </p>
+        <p class="survey_answer" id="other_3" onclick="surveyOther(3);">
+            3
+        </p>
+        <p class="survey_answer" id="other_4" onclick="surveyOther(4);">
+            4
+        </p>
+        <p class="survey_answer" id="other_5" onclick="surveyOther(5);">
+            5
+        </p>
+        <p class="survey_answer" id="other_6" onclick="surveyOther(6);">
+            6
+        </p>
+
+
+<br><br>
+
+
+</div>
+
+
+
+
+
+
+<form method="POST" action="">
+    {{ form.hidden_tag()}}
+    <input type="hidden" id="self" name="self">
+    <input type="hidden" id="other" name="other">
+    <br><br>
+
+    <p style="font-size:20px;">How do you estimate your own percentage compared to your peers from 0-100%. 0% being the worst, 50% exactly average and 100% the best one</p>
+
+    <div class="slidecontainer">
+        <input type="range" min="0" max="100" value="50" class="slider" id="myRange" oninput="rangeValue.innerText = this.value;" name="percentage">
+        <strong><p id="rangeValue">50</p></strong>
+
+    </div>
+
+    {{ form.submit(class="btn btn-success btn-block") }}
+</form>
+
+
+<style>
+    .survey_answer{
+       text-align:center;
+       border: 3px solid #0C2340;
+       font-size:34px;
+       border-radius: 50%;
+       margin-right: 10px;
+       padding-left: 10px;
+       padding-right: 10px;
+       height: 60px;
+       width: 60px;
+
+    }
+
+    .active_survey_self {
+       background-color: #0C2340;
+       color: white;
+    }
+
+    .active_survey_other {
+       background-color: #0C2340;
+       color: white;
+    }
+
+    .slidecontainer {
+      width: 100%; /* Width of the outside container */
+    }
+
+    /* The slider itself */
+    .slider {
+      -webkit-appearance: none;  /* Override default CSS styles */
+      appearance: none;
+      width: 100%; /* Full-width */
+      height: 25px; /* Specified height */
+      background: #d3d3d3; /* Grey background */
+      outline: none; /* Remove outline */
+      opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+      -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+      transition: opacity .2s;
+    }
+
+    /* Mouse-over effects */
+    .slider:hover {
+      opacity: 1; /* Fully shown on mouse-over */
+    }
+
+    /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+    .slider::-webkit-slider-thumb {
+      -webkit-appearance: none; /* Override default look */
+      appearance: none;
+      width: 25px; /* Set a specific slider handle width */
+      height: 25px; /* Slider handle height */
+      background: #0C2340; /* Green background */
+      cursor: pointer; /* Cursor on hover */
+    }
+
+    .slider::-moz-range-thumb {
+      width: 25px; /* Set a specific slider handle width */
+      height: 25px; /* Slider handle height */
+      background: #0C2340; /* Green background */
+      cursor: pointer; /* Cursor on hover */
+    }
+
+</style>
+
+
+
+{% endblock content %}

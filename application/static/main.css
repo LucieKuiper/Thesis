@@ -190,20 +190,12 @@ input[type=submit] { align-self: start; min-width: 10em; }
   }
   .ai-advice{
     text-align:center;
-    float:right;
-    background: #C41E3A;
+    background: #0C2340;
     color: #FFFAFA;
-    border: 3px solid #C41E3A;
-    border-radius: 10px;
-    margin-left: 4px;
-    padding-left: 7px;
-    padding-right: 5px;
-    margin-top: 50px;
+    border: 3px solid #0C2340;
     min-height: 100px;
+    width: 100%;
     height:auto;
-    float: right;
-    width: 15%;
-    }
-
+  }
 
 }

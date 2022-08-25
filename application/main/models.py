@@ -91,7 +91,6 @@ class PilotUser(db.Model, UserMixin):
     confident28 = db.Column(db.String(3), nullable=True, default=None)
     confident29 = db.Column(db.String(3), nullable=True, default=None)
 
-
     def __repr__(self):
         return f"user('{self.username}')"
 
@@ -102,6 +101,9 @@ class AIUser(db.Model, UserMixin):
     username = db.Column(db.String(50), nullable=False, unique=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     task_counter = db.Column(db.Integer, default=0)
+    tutorial = db.Column(db.Integer, default=0)
+    question_order = db.Column(db.Integer, default=0)
+
     previous = db.Column(db.String(30), nullable=True, default="No previous answer")
     question0 = db.Column(db.String(1), nullable=True, default=None)
     question1 = db.Column(db.String(1), nullable=True, default=None)
@@ -109,16 +111,16 @@ class AIUser(db.Model, UserMixin):
     question3 = db.Column(db.String(1), nullable=True, default=None)
     question4 = db.Column(db.String(1), nullable=True, default=None)
     question5 = db.Column(db.String(1), nullable=True, default=None)
-    question6 = db.Column(db.String(1), nullable=True, default=None)
     question7 = db.Column(db.String(1), nullable=True, default=None)
     question8 = db.Column(db.String(1), nullable=True, default=None)
     question9 = db.Column(db.String(1), nullable=True, default=None)
     question10 = db.Column(db.String(1), nullable=True, default=None)
-    question11 = db.Column(db.String(1), nullable=True, default=None)
     question12 = db.Column(db.String(1), nullable=True, default=None)
     question13 = db.Column(db.String(1), nullable=True, default=None)
     question14 = db.Column(db.String(1), nullable=True, default=None)
     question15 = db.Column(db.String(1), nullable=True, default=None)
+    question16 = db.Column(db.String(1), nullable=True, default=None)
+    question17 = db.Column(db.String(1), nullable=True, default=None)
 
     advice0 = db.Column(db.String(1), nullable=True, default=None)
     advice1 = db.Column(db.String(1), nullable=True, default=None)
@@ -126,18 +128,27 @@ class AIUser(db.Model, UserMixin):
     advice3 = db.Column(db.String(1), nullable=True, default=None)
     advice4 = db.Column(db.String(1), nullable=True, default=None)
     advice5 = db.Column(db.String(1), nullable=True, default=None)
-    advice6 = db.Column(db.String(1), nullable=True, default=None)
     advice7 = db.Column(db.String(1), nullable=True, default=None)
     advice8 = db.Column(db.String(1), nullable=True, default=None)
     advice9 = db.Column(db.String(1), nullable=True, default=None)
     advice10 = db.Column(db.String(1), nullable=True, default=None)
-    advice11 = db.Column(db.String(1), nullable=True, default=None)
     advice12 = db.Column(db.String(1), nullable=True, default=None)
     advice13 = db.Column(db.String(1), nullable=True, default=None)
     advice14 = db.Column(db.String(1), nullable=True, default=None)
     advice15 = db.Column(db.String(1), nullable=True, default=None)
+    advice16 = db.Column(db.String(1), nullable=True, default=None)
+    advice17 = db.Column(db.String(1), nullable=True, default=None)
 
+    attention6 = db.Column(db.String(1), nullable=True, default=None)
+    attention11 = db.Column(db.String(1), nullable=True, default=None)
+    attention18 = db.Column(db.String(1), nullable=True, default=None)
 
+    surveySelf1 = db.Column(db.String(1), nullable=True, default=None)
+    surveySelf2 = db.Column(db.String(1), nullable=True, default=None)
+    surveyOther1 = db.Column(db.String(1), nullable=True, default=None)
+    surveyOther2 = db.Column(db.String(1), nullable=True, default=None)
+    surveyPercentage1 = db.Column(db.String(3), nullable=True, default=None)
+    surveyPercentage2 = db.Column(db.String(3), nullable=True, default=None)
 
     def __repr__(self):
         return f"user('{self.username}')"

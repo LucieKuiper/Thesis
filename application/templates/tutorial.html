@@ -7,21 +7,33 @@
 
 <title>Questions</title>
 <h1 style="text-align:center;">Questions</h1>
-<div class="ai-advice">
-    <p style="font-size:20px;"><strong>AI advice</strong><br></p>
-    <p style="font-size:30px;">{{advice}}</p>
+<div class="correct-answer">
+    <p style="font-size:13px;"><strong>Correct answer</strong><br></p>
+    <p style="font-size:30px;">{{correct_answer}}</p>
 
 </div>
-
-
 <div class="content">
+    <div class="blocks">
+        <div class="ai-advice">
+            <p style="font-size:20px;"><strong>AI advice</strong></p>
+            <p style="font-size:30px;"> {{advice}}</p>
+
+        </div>
+        <div class="ai-advice">
+            <p style="font-size:15px;"><strong>Own answer</strong></p>
+            <p style="font-size:30px;"> {{old_answer}}</p>
+        </div>
+    </div>
+
+
+
     <div>
         <h2>Context</h2>
         <p>{{context}}
         </p>
     </div>
     <div>
-        <h2>Question {{counter +1}}/16</h2>
+        <h2>Question {{counter +1}}/19</h2>
         <p>{{question}}
         </p>
     </div>
@@ -49,18 +61,12 @@
             </p>
         </div>
     </div>
-    <div>
-        <h4>Your answer</h4>
-        <strong><p style="font-size:17px;"> {{old_answer}}
-        </p></strong>
-    </div>
-
 </div>
 <p class="tutorial"> {{tutorial_ai}} </p>
 
 <form method="POST" action="">
     {{ form.hidden_tag()}}
-    {{ form.submit(class="btn btn-outline-dark") }}
+    {{ form.submit(class="btn btn-success btn-block") }}
 </form>
 
 <style>
@@ -69,7 +75,7 @@
      color: #0C2340;
      width: 84%;
   }
-  .ai-advice{
+  .correct-answer{
     text-align:center;
     float:right;
     background: #C41E3A;
@@ -80,8 +86,8 @@
     padding-left: 7px;
     padding-right: 5px;
     margin-top: 50px;
-    min-height: 100px;
-    height:auto;
+    min-height: 110px;
+    height: auto;
     float: right;
     width: 15%;
   }
@@ -104,6 +110,26 @@
     background-color: #0C2340;
     color: white;
     }
+
+     .blocks{
+    position: absolute;
+    right: 15px;
+    bottom: 300px;
+    float: bottom;
+    float:right;
+    width: 15%;
+  }
+  .ai-advice{
+    text-align:center;
+    background: #0C2340;
+    color: #FFFAFA;
+    border: 3px solid #0C2340;
+    border-radius: 10px;
+    width: 100%;
+    min-height: 110px;
+    height: auto;
+    margin-top: 10px;
+  }
 
 
 </style>
