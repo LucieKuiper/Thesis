@@ -21,7 +21,5 @@ class LoginForm(FlaskForm):
 
 
 class Survey(FlaskForm):
-    self = StringField('Self', validators=[DataRequired()])
-    other = StringField('Other', validators=[DataRequired()])
-    percentage = IntegerField('Percentage', validators=[DataRequired()])
+    answer = StringField('Answer', validators=[DataRequired()])
     submit = SubmitField('Confirm and Continue')

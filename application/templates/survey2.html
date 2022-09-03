@@ -2,7 +2,6 @@
 
 {% block content %}
 
-
 <script type = "text/javascript">
 let SURVEY = ['answer_0', 'answer_1', 'answer_2', 'answer_3', 'answer_4', 'answer_5', 'answer_6'];
 
@@ -21,6 +20,8 @@ let SURVEY = ['answer_0', 'answer_1', 'answer_2', 'answer_3', 'answer_4', 'answe
 
 </script>
 
+
+
 <script type = "text/javascript">
 
 setTimeout(function() {
@@ -31,34 +32,33 @@ setTimeout(function() {
 </script>
 
 <title>Survey</title>
-
 <h1 style="text-align:center;">Survey</h1>
 
-<p style="font-size:20px; padding-top:50px;">From the previous 6 questions, how many questions do you estimate to have answered correct? (after receiving AI advice)</p>
+<p style="font-size:20px; padding-top:50px;">From the previous 6 questions, how many questions on <strong>average</strong> do you estimate <strong>your peers</strong> to have answered correct? (after receiving AI advice)</p>
 
-    <div class="col-container">
-         <p class="survey_answer" id="answer_0" onclick="survey(0);" >
-            0
-            </p>
-            <p class="survey_answer" id="answer_1" onclick="survey(1);" >
-                1
-            </p>
-            <p class="survey_answer" id="answer_2" onclick="survey(2);">
-                2
-            </p>
-            <p class="survey_answer" id="answer_3" onclick="survey(3);">
-                3
-            </p>
-            <p class="survey_answer" id="answer_4" onclick="survey(4);">
-                4
-            </p>
-            <p class="survey_answer" id="answer_5" onclick="survey(5);">
-                5
-            </p>
-            <p class="survey_answer" id="answer_6" onclick="survey(6);">
-                6
-            </p>
-    </div>
+<div class="col-container">
+    <p class="survey_answer" id="answer_0" onclick="survey(0);" >
+        0
+    </p>
+    <p class="survey_answer" id="answer_1" onclick="survey(1);" >
+        1
+    </p>
+    <p class="survey_answer" id="answer_2" onclick="survey(2);">
+        2
+    </p>
+    <p class="survey_answer" id="answer_3" onclick="survey(3);">
+        3
+    </p>
+    <p class="survey_answer" id="answer_4" onclick="survey(4);">
+        4
+    </p>
+    <p class="survey_answer" id="answer_5" onclick="survey(5);">
+        5
+    </p>
+    <p class="survey_answer" id="answer_6" onclick="survey(6);">
+        6
+    </p>
+</div>
 <br><br>
 
 
@@ -69,6 +69,7 @@ setTimeout(function() {
     {{ form.submit(hidden='true', id='form-submit') }}
     <button class="btn btn-success btn-block js-button" type="submit" id="submit" disabled="disabled">Confirm and continue</button>
 </form>
+
 
 <style>
   .survey_answer{
@@ -89,6 +90,7 @@ setTimeout(function() {
     color: white;
   }
 </style>
+
 
 
 {% endblock content %}

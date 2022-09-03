@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+
+{% block content %}
+<title>Survey</title>
+<h1 style="text-align:center;">Survey</h1>
+
+<script type = "text/javascript">
+
+setTimeout(function() {
+    document.getElementById("submit").disabled = false;
+    }, 2000);
+</script>
+
+<form method="POST" action="">
+    {{ form.hidden_tag()}}
+    <p style="font-size:20px; padding-top:50px;">How do you estimate your own performance (after AI advice) compared to your peers from 0-100%. 0% being the worst, 50% exactly average and 100% the best one</p>
+    <div class="slidecontainer">
+        <input type="range" min="-1" max="100" value="-1" class="slider" id="myRange" oninput="rangeValue.innerText = this.value;" name="answer">
+        <strong><p id="rangeValue">-1</p> </strong>
+    </div>
+    {{ form.submit(hidden='true', id='form-submit') }}
+    <button class="btn btn-success btn-block js-button" type="submit" id="submit" disabled="disabled">Confirm and continue</button>
+</form>
+
+
+
+
+
+{% endblock content %}

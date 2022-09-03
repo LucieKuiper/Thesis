@@ -4,9 +4,19 @@
 {% block content %}
 <script type = "text/javascript" src="{{ url_for('static', filename='script.js') }}"></script>
 
+<script type = "text/javascript">
+
+setTimeout(function() {
+    document.getElementById("submit").disabled = false;
+    }, 500);
+
+
+</script>
+
+
 
 <title>Questions</title>
-<h1 style="text-align:center;">Questions</h1>
+<h1 style="text-align:center;">Tasks</h1>
 <div class="content">
     <div>
         <h2>Context</h2>
@@ -14,7 +24,11 @@
         </p>
     </div>
     <div>
-        <h2>Question {{counter +1}}/19</h2>
+        {% if counter == 4 or counter == 9 or counter == 15 %}
+        <h2>Task</h2>
+        {% else %}
+        <h2>Task {{show +1}}/16</h2>
+        {% endif %}
         <p>{{question}}
         </p>
     </div>
@@ -49,6 +63,7 @@
     {{ form.hidden_tag()}}
     <input type="hidden" id="answer" name="answer">
     {{ form.confidence }}
-    {{ form.submit(class="btn btn-success btn-block") }}
+    {{ form.submit(hidden='true', id='form-submit') }}
+    <button class="btn btn-success btn-block js-button" type="submit" id="submit" disabled="disabled">Confirm and continue</button>
 </form>
 {% endblock content %}

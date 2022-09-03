@@ -4,18 +4,27 @@
 {% block content %}
 <script type = "text/javascript" src="{{ url_for('static', filename='script.js') }}"></script>
 
+<script type = "text/javascript">
+
+setTimeout(function() {
+    document.getElementById("submit").disabled = false;
+    }, 500);
+
+
+</script>
+
 
 <title>Questions</title>
-<h1 style="text-align:center;">Questions</h1>
+<h1 style="text-align:center;">Tasks</h1>
 
 <div class="blocks">
     <div class="ai-advice">
-        <p style="font-size:20px;"><strong>AI advice</strong></p>
+        <p style="font-size:px;"><strong>AI advice</strong></p>
         <p style="font-size:30px;"> {{advice}}</p>
 
     </div>
     <div class="ai-advice">
-        <p style="font-size:15px;"><strong>Own answer</strong></p>
+        <p style="font-size:15px;"><strong>Your choice</strong></p>
         <p style="font-size:30px;"> {{old_answer}}</p>
     </div>
 </div>
@@ -29,7 +38,11 @@
         </p>
     </div>
     <div>
-        <h2>Question {{counter +1}}/19</h2>
+        {% if counter == 4 or counter == 9 or counter == 15 %}
+        <h2>Task</h2>
+        {% else %}
+        <h2>Task {{show +1}}/16</h2>
+        {% endif %}
         <p>{{question}}
         </p>
     </div>
@@ -62,12 +75,13 @@
 <form method="POST" action="">
     {{ form.hidden_tag()}}
     <input type="hidden" id="answer" name="answer">
-    <strong> {{ form.submit(class="btn btn-success btn-block") }} </strong>
+    {{ form.submit(hidden='true', id='form-submit') }}
+    <button class="btn btn-success btn-block js-button" type="submit" id="submit" disabled="disabled">Confirm and continue</button>
 </form>
 
 <style>
   .content {
-     padding: 0;
+      padding: 0;
      color: #0C2340;
      width: 84%;
   }

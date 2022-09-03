@@ -8,16 +8,16 @@ from random import randint
 ai_advice = Blueprint('ai_advice', __name__, url_prefix='/ai')
 questions_list = load_data("/static/AIadvice.csv")  # CSV list with data
 
-question0 = [1, 4, 5, 2, 3, 0, 6, 7, 11, 10, 8, 9, 14, 17, 13, 18, 12, 16, 15]
-question1 = [12, 18, 17, 13, 14, 16, 15, 9, 11, 10, 8, 7, 5, 0, 2, 1, 4, 6, 3]
-question2 = [1, 6, 4, 5, 0, 3, 2, 11, 8, 10, 9, 7, 15, 13, 17, 14, 18, 16, 12]
-question3 = [12, 18, 16, 17, 14, 13, 15, 10, 8, 9, 11, 7, 2, 4, 5, 0, 6, 3, 1]
-question4 = [3, 1, 4, 6, 2, 0, 5, 11, 8, 10, 9, 7, 17, 13, 18, 15, 12, 16, 14]
-question5 = [16, 13, 14, 17, 12, 18, 15, 11, 9, 10, 8, 7, 0, 5, 1, 6, 3, 4, 2]
-question6 = [4, 1, 3, 0, 2, 6, 5, 8, 11, 7, 10, 9, 17, 16, 13, 18, 15, 14, 12]
-question7 = [12, 14, 16, 17, 18, 15, 13, 8, 7, 10, 11, 9, 3, 2, 4, 1, 6, 5, 0]
-question8 = [2, 0, 6, 4, 5, 3, 1, 8, 9, 7, 11, 10, 16, 15, 17, 18, 12, 13, 14]
-question9 = [12, 14, 16, 15, 13, 17, 18, 10, 9, 11, 8, 7, 0, 4, 6, 5, 3, 2, 1]
+question0 = [1, 4, 5, 2, 6, 3, 0, 7, 10, 11, 8, 9, 14, 17, 13, 18, 12, 16, 15]
+question1 = [12, 17, 13, 14, 18, 16, 15, 9, 10, 11, 8, 7, 5, 0, 2, 6, 1, 4, 3]
+question2 = [1, 4, 5, 0, 6, 3, 2, 8, 10, 11, 9, 7, 15, 13, 17, 18, 14, 16, 12]
+question3 = [12, 16, 17, 14, 18, 13, 15, 10, 8, 11, 9, 7, 2, 4, 5, 6, 0, 3, 1]
+question4 = [3, 1, 4, 2, 6, 0, 5, 8, 10, 11, 9, 7, 17, 13, 15, 18, 12, 16, 14]
+question5 = [16, 13, 14, 17, 18, 12, 15, 9, 10, 11, 8, 7, 0, 5, 1, 6, 3, 4, 2]
+question6 = [4, 1, 3, 0, 6, 2, 5, 8, 7, 11, 10, 9, 17, 16, 13, 18, 15, 14, 12]
+question7 = [12, 14, 16, 17, 18, 15, 13, 8, 7, 11, 10, 9, 3, 2, 4, 6, 1, 5, 0]
+question8 = [2, 0, 4, 5, 6, 3, 1, 8, 9, 11, 7, 10, 16, 15, 17, 18, 12, 13, 14]
+question9 = [12, 14, 16, 15, 18, 13, 17, 10, 9, 11, 8, 7, 0, 4, 5, 6, 3, 2, 1]
 question_order_list = [question0, question1, question2, question3, question4, question5, question6, question7,
                        question8, question9]
 
@@ -79,33 +79,43 @@ def questions():
     form = OtherForm()
     user = AIUser.query.filter_by(user_id=current_user.id).first()
     counter = user.task_counter  # counter that tracks at which question the user is
+    show = counter
 
     if counter > 18:
         current_user.ai_done = True
         db.session.commit()
-        return redirect(url_for('ai_advice.survey'))
+        return redirect(url_for('ai_advice.survey1'))
 
     question_number = question_order_list[user.question_order][counter]
     old_answer = user.previous
 
+    if counter > 15:
+        show = show - 3
+    elif counter > 9:
+        show = show - 2
+    elif counter > 4:
+        show = show - 1
+
+
     if counter == 7 and user.previous != 'E':
         user.previous = 'E'
         db.session.commit()
-        return redirect(url_for('ai_advice.survey'))
+        return redirect(url_for('ai_advice.survey1'))
 
     elif counter == 12 and user.previous != 'E':
         return redirect(url_for('ai_advice.last_set'))
 
-    if question_number != 6 and question_number != 11 and question_number != 18 and getattr(user, "advice{}".format(question_number)) is None and getattr(user, "question{}".format(question_number)) is not None:
+    if question_number != 6 and question_number != 11 and question_number != 18 and getattr(user, "advice{}".format(
+            question_number)) is None and getattr(user, "question{}".format(question_number)) is not None:
         return redirect(url_for('ai_advice.AIAdvice'))
 
-#    elif (question_number == 6 or question_number == 11 or question_number == 18) and getattr(user, "attention{}".format(
-#            question_number)) is not None:
-#        return 'bad request!', 400
+    #    elif (question_number == 6 or question_number == 11 or question_number == 18) and getattr(user, "attention{}".format(
+    #            question_number)) is not None:
+    #        return 'bad request!', 400
 
-#    elif question_number != 6 and question_number != 11 and question_number != 18 and getattr(user, "question{}".format(
-#            question_number)) is not None:
-#        return 'bad request!', 400
+    #    elif question_number != 6 and question_number != 11 and question_number != 18 and getattr(user, "question{}".format(
+    #            question_number)) is not None:
+    #        return 'bad request!', 400
 
     # Load in questions from data set
     data_context = questions_list.iloc[question_number][0]
@@ -134,7 +144,7 @@ def questions():
         flash('No answer found, please select an answer', 'danger')
     return render_template('questions.html', form=form, context=data_context, question=data_question,
                            answer0=data_answer0, answer1=data_answer1, answer2=data_answer2, answer3=data_answer3,
-                           counter=counter, list=list, advice=data_advice, old_answer=old_answer)
+                           counter=counter, list=list, advice=data_advice, old_answer=old_answer, show=show)
 
 
 # Route to show the pages including AI advice
@@ -146,11 +156,13 @@ def AIAdvice():
     counter = user.task_counter  # counter that tracks at which question the user is
     question_number = question_order_list[user.question_order][counter]
     old_answer = user.previous
+    show = counter
 
     if question_number == 6 or question_number == 11 or question_number == 18:
         return redirect(url_for('ai_advice.questions'))
 
-    if getattr(user, "advice{}".format(question_number)) is not None or getattr(user, "question{}".format(question_number)) is None:
+    if getattr(user, "advice{}".format(question_number)) is not None or getattr(user, "question{}".format(
+            question_number)) is None:
         if 6 < counter < 12 and user.tutorial == 0:
             if getattr(user, "advice{}".format(question_number)) == questions_list.iloc[question_number][7]:
                 return redirect(url_for('ai_advice.correct'))
@@ -160,7 +172,14 @@ def AIAdvice():
             return redirect(url_for('ai_advice.questions'))
 
     if counter > 18:
-        return redirect(url_for('ai_advice.survey'))
+        return redirect(url_for('ai_advice.survey1'))
+
+    if counter > 15:
+        show = show - 3
+    elif counter > 9:
+        show = show - 2
+    elif counter > 4:
+        show = show - 1
 
     # Load in questions from data set
     data_context = questions_list.iloc[question_number][0]
@@ -175,7 +194,8 @@ def AIAdvice():
     if form.validate_on_submit() and (form.answer.data == 'A' or form.answer.data == 'B' or form.answer.data == 'C'
                                       or form.answer.data == 'D'):
         if getattr(user, "advice{}".format(question_number)) is not None:
-            flash('There is already an answer for this question you can not answer this again, please continue', 'danger')
+            flash('There is already an answer for this question you can not answer this again, please continue',
+                  'danger')
         else:
             setattr(user, "advice{}".format(question_number), form.answer.data)
             db.session.commit()
@@ -197,7 +217,7 @@ def AIAdvice():
         flash('No answer found, please select an answer', 'danger')
     return render_template('AIquestions.html', form=form, context=data_context, question=data_question,
                            answer0=data_answer0, answer1=data_answer1, answer2=data_answer2, answer3=data_answer3,
-                           counter=counter, list=list, advice=data_advice, old_answer=old_answer)
+                           counter=counter, list=list, advice=data_advice, old_answer=old_answer, show=show)
 
 
 @ai_advice.route("/tutorial", methods=['GET', 'POST'])
@@ -208,6 +228,14 @@ def tutorial():
     counter = user.task_counter  # counter that tracks at which question the user is
     question_number = question_order_list[user.question_order][counter]
     old_answer = getattr(user, "advice{}".format(question_number))
+    show = counter
+
+    if counter > 15:
+        show = show - 3
+    elif counter > 9:
+        show = show - 2
+    elif counter > 4:
+        show = show - 1
 
     if old_answer is None:
         return redirect(url_for('ai_advice.questions'))
@@ -237,49 +265,106 @@ def tutorial():
     return render_template('tutorial.html', form=form, context=data_context, question=data_question,
                            answer0=data_answer0, answer1=data_answer1, answer2=data_answer2, answer3=data_answer3,
                            counter=counter, list=list, advice=data_advice, old_answer=old_answer,
-                           tutorial_ai=tutorial_ai, correct_answer=correct_answer)
+                           tutorial_ai=tutorial_ai, correct_answer=correct_answer, show=show)
 
-
-@ai_advice.route("/survey", methods=['GET', 'POST'])
+@ai_advice.route("/survey1", methods=['GET', 'POST'])
 @login_required
-def survey():
+def survey1():
     form = Survey()
     user = AIUser.query.filter_by(user_id=current_user.id).first()
     counter = user.task_counter
 
-    if form.validate_on_submit() and (form.self.data == '0' or form.self.data == '1' or form.self.data == '2' or
-                                      form.self.data == '3' or form.self.data == '4' or form.self.data == '5' or
-                                      form.self.data == '6') and (form.other.data == '0' or form.other.data == '1' or
-                                                                  form.other.data == '2' or form.other.data == '3 ' or
-                                                                  form.other.data == '4' or form.other.data == '5' or
-                                                                  form.other.data == '6'):
+    if form.validate_on_submit() and (form.answer.data == '0' or form.answer.data == '1' or form.answer.data == '2' or
+                                      form.answer.data == '3' or form.answer.data == '4' or form.answer.data == '5' or
+                                      form.answer.data == '6'):
         if counter < 8:
             if user.surveySelf1 is not None:
                 flash('There is already an answer for this survey you can not answer it again', 'danger')
             else:
-                user.surveySelf1 = form.self.data
-                user.surveyOther1 = form.other.data
-                user.surveyPercentage1 = request.form["percentage"]
+                user.surveySelf1 = form.answer.data
+                db.session.commit()
+            return redirect(url_for('ai_advice.survey2'))
+
+        else:
+            if user.surveySelf2 is not None:
+                flash('There is already an answer for this survey you can not answer it again', 'danger')
+            else:
+                user.surveySelf2 = form.answer.data
+                db.session.commit()
+        return redirect(url_for('ai_advice.survey2'))
+
+    # Gives warning when form is submitted with no answer in place
+    elif request.method == 'POST':
+        flash('No answer found, please select an answer', 'danger')
+
+    return render_template('survey.html', form=form)
+
+
+@ai_advice.route("/survey2", methods=['GET', 'POST'])
+@login_required
+def survey2():
+    form = Survey()
+    user = AIUser.query.filter_by(user_id=current_user.id).first()
+    counter = user.task_counter
+
+    if form.validate_on_submit() and (form.answer.data == '0' or form.answer.data == '1' or form.answer.data == '2' or
+                                      form.answer.data == '3' or form.answer.data == '4' or form.answer.data == '5' or
+                                      form.answer.data == '6'):
+        if counter < 8:
+            if user.surveyOther1 is not None:
+                flash('There is already an answer for this survey you can not answer it again', 'danger')
+            else:
+                user.surveyOther1 = form.answer.data
+                db.session.commit()
+            return redirect(url_for('ai_advice.survey3'))
+
+        else:
+            if user.surveyOther2 is not None:
+                flash('There is already an answer for this survey you can not answer it again', 'danger')
+            else:
+                user.surveyOther2 = form.answer.data
+                db.session.commit()
+        return redirect(url_for('ai_advice.survey3'))
+
+    # Gives warning when form is submitted with no answer in place
+    elif request.method == 'POST':
+        flash('No answer found, please select an answer', 'danger')
+
+    return render_template('survey2.html', form=form)
+
+
+@ai_advice.route("/survey3", methods=['GET', 'POST'])
+@login_required
+def survey3():
+    form = Survey()
+    user = AIUser.query.filter_by(user_id=current_user.id).first()
+    counter = user.task_counter
+
+    if form.validate_on_submit() and (0 <= int(request.form["answer"]) <= 100):
+        if counter < 8:
+            if user.surveyPercentage1 is not None:
+                flash('There is already an answer for this survey you can not answer it again', 'danger')
+            else:
+                user.surveyPercentage1 = request.form["answer"]
                 db.session.commit()
             if user.tutorial == 0:
                 return redirect(url_for('ai_advice.tutorial_start'))
             else:
                 return redirect(url_for('ai_advice.no_tutorial_start'))
+
         else:
-            if user.surveySelf2 is not None:
+            if user.surveyPercentage2 is not None:
                 flash('There is already an answer for this survey you can not answer it again', 'danger')
                 return redirect(url_for('ai_advice.final'))
-            user.surveySelf2 = form.self.data
-            user.surveyOther2 = form.other.data
-            user.surveyPercentage2 = request.form["percentage"]
+            user.surveyPercentage2 = request.form["answer"]
             db.session.commit()
-            return redirect(url_for('ai_advice.final'))
+        return redirect(url_for('ai_advice.final'))
 
     # Gives warning when form is submitted with no answer in place
     elif request.method == 'POST':
-        flash('Not to all questions a valid answer was found, please fill out all questions', 'danger')
+        flash('No answer found, please select a value between 0 and 100', 'danger')
 
-    return render_template('survey.html', form=form)
+    return render_template('survey3.html', form=form)
 
 
 # Allows to start from where user left off
