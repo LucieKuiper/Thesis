@@ -11,101 +11,46 @@ setTimeout(function() {
 </script>
 
 
+
 <title>Questions</title>
 <h1 style="text-align:center;">Tasks</h1>
-
-<div class="blocks">
-    <div class="ai-advice">
-        <p style="font-size:px;"><strong>AI advice</strong></p>
-        <p style="font-size:30px;"> {{advice}}</p>
-
-    </div>
-    <div class="ai-advice">
-        <p style="font-size:15px;"><strong>Your choice</strong></p>
-        <p style="font-size:30px;"> {{old_answer}}</p>
-    </div>
-</div>
-
-
-
 <div class="content">
     <div>
-        <h2>Context</h2>
-        <p>{{context}}
-        </p>
-    </div>
-    <div>
-        {% if counter == 4 or counter == 9 or counter == 15 %}
         <h2>Task</h2>
-        {% else %}
-        <h2>Task {{show +1}}/16</h2>
-        {% endif %}
-        <p>{{question}}
+        <p>How many questions does this experiment has in total?
         </p>
     </div>
+
 
 
     <div>
         <div class="col-container">
             <strong style="font-size:20px;">A</strong>
             <p class="answer-left" id="answer_A" onclick="changeAnswer(0);" >
-                {{answer0}}
+                24
             </p>
             <strong style="font-size:20px;">B</strong>
             <p class="answer-right" id="answer_B" onclick="changeAnswer(1);">
-                {{answer1}}
+                20
             </p>
         </div>
         <div class="col-container">
             <strong style="font-size:20px;">C</strong>
             <p class="answer-left" id="answer_C" onclick="changeAnswer(2);">
-                {{answer2}}
+                16
             </p>
             <strong style="font-size:20px;">D</strong>
             <p class="answer-right" id="answer_D" onclick="changeAnswer(3);">
-                {{answer3}}
+                12
             </p>
         </div>
     </div>
-
 </div>
+
 <form method="POST" action="">
     {{ form.hidden_tag()}}
     <input type="hidden" id="answer" name="answer">
     {{ form.submit(hidden='true', id='form-submit') }}
     <button class="btn btn-success btn-block js-button" type="submit" id="submit" disabled="disabled">Confirm and continue</button>
 </form>
-
-<style>
-  .content {
-      padding: 0;
-     color: #0C2340;
-     width: 84%;
-  }
-
-  .blocks{
-    position: absolute;
-    right: 15px;
-    bottom: 55px;
-    float: bottom;
-    float:right;
-    width: 15%;
-  }
-  .ai-advice{
-    text-align:center;
-    background: #0C2340;
-    color: #FFFAFA;
-    border: 3px solid #0C2340;
-    border-radius: 10px;
-    width: 100%;
-    min-height:110px;
-    height: auto;
-    margin-top: 10px;
-  }
-
-
-</style>
-
-
-
 {% endblock content %}

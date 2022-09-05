@@ -5,12 +5,9 @@
 <script type = "text/javascript" src="{{ url_for('static', filename='script.js') }}"></script>
 
 <script type = "text/javascript">
-
 setTimeout(function() {
     document.getElementById("submit").disabled = false;
-    }, 500);
-
-
+    }, {{ timer }});
 </script>
 
 

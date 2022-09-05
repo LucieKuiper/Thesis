@@ -8,6 +8,7 @@ from random import randint
 ai_advice = Blueprint('ai_advice', __name__, url_prefix='/ai')
 questions_list = load_data("/static/AIadvice.csv")  # CSV list with data
 
+# Random orders (with constraints) of questions
 question0 = [1, 4, 5, 2, 6, 3, 0, 7, 10, 11, 8, 9, 14, 17, 13, 18, 12, 16, 15]
 question1 = [12, 17, 13, 14, 18, 16, 15, 9, 10, 11, 8, 7, 5, 0, 2, 6, 1, 4, 3]
 question2 = [1, 4, 5, 0, 6, 3, 2, 8, 10, 11, 9, 7, 15, 13, 17, 18, 14, 16, 12]
@@ -22,9 +23,9 @@ question_order_list = [question0, question1, question2, question3, question4, qu
                        question8, question9]
 
 
-# Route to create user from userID given by prolific and continues to next page
-@ai_advice.route("/", methods=['GET', 'POST'])
-def start():
+# Route to create user from userID given by prolific and continues to next page with tutorial
+@ai_advice.route("/version1/", methods=['GET', 'POST'])
+def start_tut():
     username = request.args.get('PROLIFIC_PID')
     exsits = User.query.filter_by(username=username).first()
     # Check if new account and needs to be created, and create if needed
@@ -34,8 +35,40 @@ def start():
         db.session.commit()
         login_user(user)
         order = randint(0, 9)
-        version = randint(0, 1)
-        ai_user = AIUser(username=username, AI_user=current_user, tutorial=version, question_order=order)
+        ai_user = AIUser(username=username, AI_user=current_user, tutorial=0, question_order=order)
+        db.session.add(ai_user)
+        db.session.commit()
+        return redirect(url_for('ai_advice.introduction'))
+    # Logs in if account already existent and check whether has done survey already
+    else:
+        user = User.query.filter_by(username=username).first()
+        login_user(user)
+        if user.ai_done:
+            return redirect(url_for('ai_advice.done'))
+        else:
+            if user.ai_started:
+                return redirect(url_for('ai_advice.go_on'))
+            else:
+                current_user.ai_started = True
+                ai_user = AIUser(username=username, AI_user=current_user)
+                db.session.add(ai_user)
+                db.session.commit()
+                return redirect(url_for('ai_advice.introduction'))
+
+
+# Route to create user from userID given by prolific and continues to next page without tutorial
+@ai_advice.route("/version2/", methods=['GET', 'POST'])
+def start_no_tut():
+    username = request.args.get('PROLIFIC_PID')
+    exsits = User.query.filter_by(username=username).first()
+    # Check if new account and needs to be created, and create if needed
+    if exsits is None:
+        user = User(username=username, ai_started=True)
+        db.session.add(user)
+        db.session.commit()
+        login_user(user)
+        order = randint(0, 9)
+        ai_user = AIUser(username=username, AI_user=current_user, tutorial=1, question_order=order)
         db.session.add(ai_user)
         db.session.commit()
         return redirect(url_for('ai_advice.introduction'))
@@ -67,9 +100,15 @@ def done():
 @login_required
 def introduction():
     form = LoginForm()
+    user = AIUser.query.filter_by(user_id=current_user.id).first()
+    timer = 5000
+    if user.previous == 'F':
+        return redirect(url_for('ai_advice.attention_check'))
     if request.method == 'POST':
-        return redirect(url_for('ai_advice.questions'))
-    return render_template('introductionAI.html', form=form)
+        user.previous = 'F'
+        db.session.commit()
+        return redirect(url_for('ai_advice.attention_check'))
+    return render_template('introductionAI.html', form=form, timer=timer)
 
 
 # Route to iterate over all questions
@@ -80,6 +119,7 @@ def questions():
     user = AIUser.query.filter_by(user_id=current_user.id).first()
     counter = user.task_counter  # counter that tracks at which question the user is
     show = counter
+    timer = 300
 
     if counter > 18:
         current_user.ai_done = True
@@ -96,7 +136,6 @@ def questions():
     elif counter > 4:
         show = show - 1
 
-
     if counter == 7 and user.previous != 'E':
         user.previous = 'E'
         db.session.commit()
@@ -105,17 +144,24 @@ def questions():
     elif counter == 12 and user.previous != 'E':
         return redirect(url_for('ai_advice.last_set'))
 
+    if question_number == 6 or question_number == 11 or question_number == 18:
+        timer = 500
+
     if question_number != 6 and question_number != 11 and question_number != 18 and getattr(user, "advice{}".format(
             question_number)) is None and getattr(user, "question{}".format(question_number)) is not None:
         return redirect(url_for('ai_advice.AIAdvice'))
 
-    #    elif (question_number == 6 or question_number == 11 or question_number == 18) and getattr(user, "attention{}".format(
-    #            question_number)) is not None:
-    #        return 'bad request!', 400
-
-    #    elif question_number != 6 and question_number != 11 and question_number != 18 and getattr(user, "question{}".format(
-    #            question_number)) is not None:
-    #        return 'bad request!', 400
+    # Check if enough attention checks answered correctly
+    if (counter > 9) and (counter < 17):
+        wrong_answers = 0
+        if user.attention6 != 'B' and user.attention6 is not None:
+            wrong_answers += 1
+        if user.attention11 != 'D' and user.attention11 is not None:
+            wrong_answers += 1
+        if user.attention18 != 'C' and user.attention18 is not None:
+            wrong_answers += 1
+        if wrong_answers >= 2:
+            return redirect(url_for('ai_advice.final'))  # change for prolific kickout
 
     # Load in questions from data set
     data_context = questions_list.iloc[question_number][0]
@@ -144,7 +190,8 @@ def questions():
         flash('No answer found, please select an answer', 'danger')
     return render_template('questions.html', form=form, context=data_context, question=data_question,
                            answer0=data_answer0, answer1=data_answer1, answer2=data_answer2, answer3=data_answer3,
-                           counter=counter, list=list, advice=data_advice, old_answer=old_answer, show=show)
+                           counter=counter, list=list, advice=data_advice, old_answer=old_answer, show=show,
+                           timer=timer)
 
 
 # Route to show the pages including AI advice
@@ -157,6 +204,7 @@ def AIAdvice():
     question_number = question_order_list[user.question_order][counter]
     old_answer = user.previous
     show = counter
+    timer = 500
 
     if question_number == 6 or question_number == 11 or question_number == 18:
         return redirect(url_for('ai_advice.questions'))
@@ -217,9 +265,11 @@ def AIAdvice():
         flash('No answer found, please select an answer', 'danger')
     return render_template('AIquestions.html', form=form, context=data_context, question=data_question,
                            answer0=data_answer0, answer1=data_answer1, answer2=data_answer2, answer3=data_answer3,
-                           counter=counter, list=list, advice=data_advice, old_answer=old_answer, show=show)
+                           counter=counter, list=list, advice=data_advice, old_answer=old_answer, show=show,
+                           timer=timer)
 
 
+# Tutorial page, that also gives feedback
 @ai_advice.route("/tutorial", methods=['GET', 'POST'])
 @login_required
 def tutorial():
@@ -229,6 +279,7 @@ def tutorial():
     question_number = question_order_list[user.question_order][counter]
     old_answer = getattr(user, "advice{}".format(question_number))
     show = counter
+    timer = 500
 
     if counter > 15:
         show = show - 3
@@ -240,6 +291,7 @@ def tutorial():
     if old_answer is None:
         return redirect(url_for('ai_advice.questions'))
 
+    # Load in questions from data set
     correct_answer = questions_list.iloc[question_number][7]
     data_context = questions_list.iloc[question_number][0]
     data_question = questions_list.iloc[question_number][1]
@@ -248,6 +300,7 @@ def tutorial():
     data_answer2 = questions_list.iloc[question_number][4]
     data_answer3 = questions_list.iloc[question_number][5]
     data_advice = questions_list.iloc[question_number][9]
+    # Show different feedback depending on answer of participant
     if old_answer == 'A':
         tutorial_ai = questions_list.iloc[question_number][10]
     elif old_answer == 'B':
@@ -265,18 +318,23 @@ def tutorial():
     return render_template('tutorial.html', form=form, context=data_context, question=data_question,
                            answer0=data_answer0, answer1=data_answer1, answer2=data_answer2, answer3=data_answer3,
                            counter=counter, list=list, advice=data_advice, old_answer=old_answer,
-                           tutorial_ai=tutorial_ai, correct_answer=correct_answer, show=show)
+                           tutorial_ai=tutorial_ai, correct_answer=correct_answer, show=show, timer=timer)
 
+
+# First survey page with first question
 @ai_advice.route("/survey1", methods=['GET', 'POST'])
 @login_required
 def survey1():
     form = Survey()
     user = AIUser.query.filter_by(user_id=current_user.id).first()
     counter = user.task_counter
+    timer = 2000
 
+    # Check for valid answer
     if form.validate_on_submit() and (form.answer.data == '0' or form.answer.data == '1' or form.answer.data == '2' or
                                       form.answer.data == '3' or form.answer.data == '4' or form.answer.data == '5' or
                                       form.answer.data == '6'):
+        # Check first or second survey
         if counter < 8:
             if user.surveySelf1 is not None:
                 flash('There is already an answer for this survey you can not answer it again', 'danger')
@@ -297,19 +355,23 @@ def survey1():
     elif request.method == 'POST':
         flash('No answer found, please select an answer', 'danger')
 
-    return render_template('survey.html', form=form)
+    return render_template('survey.html', form=form, timer=timer)
 
 
+# Second survey page with second question
 @ai_advice.route("/survey2", methods=['GET', 'POST'])
 @login_required
 def survey2():
     form = Survey()
     user = AIUser.query.filter_by(user_id=current_user.id).first()
     counter = user.task_counter
+    timer = 2000
 
+    # Check for valid answer
     if form.validate_on_submit() and (form.answer.data == '0' or form.answer.data == '1' or form.answer.data == '2' or
                                       form.answer.data == '3' or form.answer.data == '4' or form.answer.data == '5' or
                                       form.answer.data == '6'):
+        # Check if first or second survey
         if counter < 8:
             if user.surveyOther1 is not None:
                 flash('There is already an answer for this survey you can not answer it again', 'danger')
@@ -330,23 +392,28 @@ def survey2():
     elif request.method == 'POST':
         flash('No answer found, please select an answer', 'danger')
 
-    return render_template('survey2.html', form=form)
+    return render_template('survey2.html', form=form, timer=timer)
 
 
+# Third survey page with third question
 @ai_advice.route("/survey3", methods=['GET', 'POST'])
 @login_required
 def survey3():
     form = Survey()
     user = AIUser.query.filter_by(user_id=current_user.id).first()
     counter = user.task_counter
+    timer = 2000
 
+    # Check for valid answer
     if form.validate_on_submit() and (0 <= int(request.form["answer"]) <= 100):
+        # Check first or second survey
         if counter < 8:
             if user.surveyPercentage1 is not None:
                 flash('There is already an answer for this survey you can not answer it again', 'danger')
             else:
                 user.surveyPercentage1 = request.form["answer"]
                 db.session.commit()
+            # Redirect depending on version
             if user.tutorial == 0:
                 return redirect(url_for('ai_advice.tutorial_start'))
             else:
@@ -364,7 +431,7 @@ def survey3():
     elif request.method == 'POST':
         flash('No answer found, please select a value between 0 and 100', 'danger')
 
-    return render_template('survey3.html', form=form)
+    return render_template('survey3.html', form=form, timer=timer)
 
 
 # Allows to start from where user left off
@@ -393,15 +460,18 @@ def final():
     return render_template('final.html')
 
 
+# Start page of second part for version with tutorial
 @ai_advice.route("/tutorial_start", methods=['GET', 'POST'])
 @login_required
 def tutorial_start():
+    timer = 2000
     form = LoginForm()
     if request.method == 'POST':
         return redirect(url_for('ai_advice.questions'))
-    return render_template('tutorialStart.html', form=form)
+    return render_template('tutorialStart.html', form=form, timer=timer)
 
 
+# Start page of second part for version without tutorial
 @ai_advice.route("/next", methods=['GET', 'POST'])
 @login_required
 def no_tutorial_start():
@@ -411,6 +481,7 @@ def no_tutorial_start():
     return render_template('next.html', form=form)
 
 
+# Page to make clear start of last set of questions
 @ai_advice.route("/last_set", methods=['GET', 'POST'])
 @login_required
 def last_set():
@@ -421,3 +492,20 @@ def last_set():
         db.session.commit()
         return redirect(url_for('ai_advice.questions'))
     return render_template('lastSet.html', form=form)
+
+
+# Attention check directly after introduction
+@ai_advice.route("/question", methods=['GET', 'POST'])
+@login_required
+def attention_check():
+    timer = 2000
+    form = OtherForm()
+    user = AIUser.query.filter_by(user_id=current_user.id).first()
+    if form.validate_on_submit() and form.answer.data == 'C':
+        return redirect(url_for('ai_advice.questions'))
+    elif form.validate_on_submit() and (form.answer.data == 'A' or form.answer.data == 'B' or form.answer.data == 'D'):
+        return redirect(url_for('ai_advice.final'))  # to be replaced with kickout
+    elif request.method == 'POST':
+        flash('No answer found, please select an answer', 'danger')
+
+    return render_template('attention.html', form=form, timer=timer)

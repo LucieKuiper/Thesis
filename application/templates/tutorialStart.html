@@ -2,6 +2,12 @@
 
 <!-- <link rel="stylesheet" href="./application/static/main.css"> -->
 {% block content %}
+<script type = "text/javascript">
+setTimeout(function() {
+    document.getElementById("submit").disabled = false;
+    }, {{ timer }});
+</script>
+
 <title>Correct</title>
 <h1 style="text-align:center;">Tutorial</h1>
 <p style="text-align:center; font-size:20px; padding: 1em; padding-top:30px;" >  The next 4 questions are a tutorial, the questions work the same way as the questions done before with one addition.
