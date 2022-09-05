@@ -514,6 +514,7 @@ def ati():
     form = ATI()
     user = AIUser.query.filter_by(user_id=current_user.id).first()
     timer = 20000
+    # Check if all answers are valid answers
     if form.validate_on_submit() and (form.ati1.data == '0' or form.ati1.data == '1' or form.ati1.data == '2' or
                                       form.ati1.data == '3' or form.ati1.data == '4' or form.ati1.data == '5') and (
             form.ati2.data == '0' or form.ati2.data == '1' or form.ati2.data == '2' or form.ati2.data == '3' or
@@ -563,6 +564,7 @@ def tia():
     user = AIUser.query.filter_by(user_id=current_user.id).first()
     counter = user.task_counter
     timer = 10000
+    # Check if all answers are valid answers
     if form.validate_on_submit() and (form.tia1.data == '0' or form.tia1.data == '1' or form.tia1.data == '2' or
                                       form.tia1.data == '3' or form.tia1.data == '4' or form.tia1.data == '5') and (
             form.tia2.data == '0' or form.tia2.data == '1' or form.tia2.data == '2' or form.tia2.data == '3' or
