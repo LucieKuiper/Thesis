@@ -15,7 +15,9 @@ After answering the question, you will be shown whether your final answer (after
     if the answer is incorrect you will be shown an explanation on why another answer is better than you answer.</p>
 
 <form method="POST" action="">
-    <div style="padding-top:30px;">{{ form.submit(class="btn btn-success btn-block") }}</div>
+    {{ form.hidden_tag()}}
+    {{ form.submit(hidden='true', id='form-submit') }}
+    <button class="btn btn-success btn-block js-button" type="submit" id="submit" disabled="disabled">Confirm and continue</button>
 </form>
 
 

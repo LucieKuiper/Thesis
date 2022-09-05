@@ -25,7 +25,9 @@ setTimeout(function() {
   this experiment and know that your answers are recorded for research. Note that no information pertaining to your
   platform identity will ever be shared publicly. </p>
 <form method="POST" action="">
-  {{ form.submit(class="btn btn-success btn-block") }}
+  {{ form.hidden_tag()}}
+  {{ form.submit(hidden='true', id='form-submit') }}
+  <button class="btn btn-success btn-block js-button" type="submit" id="submit" disabled="disabled">Confirm and continue</button>
 </form>
 
 

@@ -102,6 +102,7 @@ class AIUser(db.Model, UserMixin):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     task_counter = db.Column(db.Integer, default=0)
     tutorial = db.Column(db.Integer, default=0)
+    XAI = db.Column(db.Integer, default=0)
     question_order = db.Column(db.Integer, default=0)
 
     previous = db.Column(db.String(30), nullable=True, default="No previous answer")
@@ -142,6 +143,28 @@ class AIUser(db.Model, UserMixin):
     attention6 = db.Column(db.String(1), nullable=True, default=None)
     attention11 = db.Column(db.String(1), nullable=True, default=None)
     attention18 = db.Column(db.String(1), nullable=True, default=None)
+
+    ati1 = db.Column(db.String(1), nullable=True, default=None)
+    ati2 = db.Column(db.String(1), nullable=True, default=None)
+    ati3 = db.Column(db.String(1), nullable=True, default=None)
+    ati4 = db.Column(db.String(1), nullable=True, default=None)
+    ati5 = db.Column(db.String(1), nullable=True, default=None)
+    ati6 = db.Column(db.String(1), nullable=True, default=None)
+    ati7 = db.Column(db.String(1), nullable=True, default=None)
+    ati8 = db.Column(db.String(1), nullable=True, default=None)
+    ati9 = db.Column(db.String(1), nullable=True, default=None)
+
+    tia1_1 = db.Column(db.String(1), nullable=True, default=None)
+    tia1_2 = db.Column(db.String(1), nullable=True, default=None)
+    tia1_3 = db.Column(db.String(1), nullable=True, default=None)
+    tia1_4 = db.Column(db.String(1), nullable=True, default=None)
+    tia1_5 = db.Column(db.String(1), nullable=True, default=None)
+
+    tia2_1 = db.Column(db.String(1), nullable=True, default=None)
+    tia2_2 = db.Column(db.String(1), nullable=True, default=None)
+    tia2_3 = db.Column(db.String(1), nullable=True, default=None)
+    tia2_4 = db.Column(db.String(1), nullable=True, default=None)
+    tia2_5 = db.Column(db.String(1), nullable=True, default=None)
 
     surveySelf1 = db.Column(db.String(1), nullable=True, default=None)
     surveySelf2 = db.Column(db.String(1), nullable=True, default=None)

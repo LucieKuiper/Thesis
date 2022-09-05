@@ -1,0 +1,439 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+
+<script type = "text/javascript">
+let ATI1 = ['ati1_0', 'ati1_1', 'ati1_2', 'ati1_3', 'ati1_4', 'ati1_5'];
+
+    function ati1(id) {
+        for (let i = 0; i < ATI1.length; i++) {
+            let question = document.getElementById(ATI1[i]);
+            if (question.classList.contains("active_ati1")) {
+                question.classList.remove("active_ati1");
+            }
+        }
+      document.getElementById(ATI1[id]).classList.add("active_ati1");
+      answers = ['0', '1', '2', '3', '4', '5']
+      document.getElementById("ati1").value = answers[id]
+}
+
+let ATI2 = ['ati2_0', 'ati2_1', 'ati2_2', 'ati2_3', 'ati2_4', 'ati2_5'];
+
+    function ati2(id) {
+        for (let i = 0; i < ATI2.length; i++) {
+            let question = document.getElementById(ATI2[i]);
+            if (question.classList.contains("active_ati2")) {
+                question.classList.remove("active_ati2");
+            }
+        }
+      document.getElementById(ATI2[id]).classList.add("active_ati2");
+      answers = ['0', '1', '2', '3', '4', '5']
+      document.getElementById("ati2").value = answers[id]
+}
+
+let ATI3 = ['ati3_0', 'ati3_1', 'ati3_2', 'ati3_3', 'ati3_4', 'ati3_5'];
+
+    function ati3(id) {
+        for (let i = 0; i < ATI3.length; i++) {
+            let question = document.getElementById(ATI3[i]);
+            if (question.classList.contains("active_ati3")) {
+                question.classList.remove("active_ati3");
+            }
+        }
+      document.getElementById(ATI3[id]).classList.add("active_ati3");
+      answers = ['0', '1', '2', '3', '4', '5']
+      document.getElementById("ati3").value = answers[id]
+}
+
+let ATI4 = ['ati4_0', 'ati4_1', 'ati4_2', 'ati4_3', 'ati4_4', 'ati4_5'];
+
+    function ati4(id) {
+        for (let i = 0; i < ATI4.length; i++) {
+            let question = document.getElementById(ATI4[i]);
+            if (question.classList.contains("active_ati4")) {
+                question.classList.remove("active_ati4");
+            }
+        }
+      document.getElementById(ATI4[id]).classList.add("active_ati4");
+      answers = ['0', '1', '2', '3', '4', '5']
+      document.getElementById("ati4").value = answers[id]
+}
+
+let ATI5 = ['ati5_0', 'ati5_1', 'ati5_2', 'ati5_3', 'ati5_4', 'ati5_5'];
+
+    function ati5(id) {
+        for (let i = 0; i < ATI5.length; i++) {
+            let question = document.getElementById(ATI5[i]);
+            if (question.classList.contains("active_ati5")) {
+                question.classList.remove("active_ati5");
+            }
+        }
+      document.getElementById(ATI5[id]).classList.add("active_ati5");
+      answers = ['0', '1', '2', '3', '4', '5']
+      document.getElementById("ati5").value = answers[id]
+}
+
+let ATI6 = ['ati6_0', 'ati6_1', 'ati6_2', 'ati6_3', 'ati6_4', 'ati6_5'];
+
+    function ati6(id) {
+        for (let i = 0; i < ATI6.length; i++) {
+            let question = document.getElementById(ATI6[i]);
+            if (question.classList.contains("active_ati6")) {
+                question.classList.remove("active_ati6");
+            }
+        }
+      document.getElementById(ATI6[id]).classList.add("active_ati6");
+      answers = ['0', '1', '2', '3', '4', '5']
+      document.getElementById("ati6").value = answers[id]
+}
+
+let ATI7 = ['ati7_0', 'ati7_1', 'ati7_2', 'ati7_3', 'ati7_4', 'ati7_5'];
+
+    function ati7(id) {
+        for (let i = 0; i < ATI7.length; i++) {
+            let question = document.getElementById(ATI7[i]);
+            if (question.classList.contains("active_ati7")) {
+                question.classList.remove("active_ati7");
+            }
+        }
+      document.getElementById(ATI7[id]).classList.add("active_ati7");
+      answers = ['0', '1', '2', '3', '4', '5']
+      document.getElementById("ati7").value = answers[id]
+}
+
+let ATI8 = ['ati8_0', 'ati8_1', 'ati8_2', 'ati8_3', 'ati8_4', 'ati8_5'];
+
+    function ati8(id) {
+        for (let i = 0; i < ATI8.length; i++) {
+            let question = document.getElementById(ATI8[i]);
+            if (question.classList.contains("active_ati8")) {
+                question.classList.remove("active_ati8");
+            }
+        }
+      document.getElementById(ATI8[id]).classList.add("active_ati8");
+      answers = ['0', '1', '2', '3', '4', '5']
+      document.getElementById("ati8").value = answers[id]
+}
+
+let ATI9 = ['ati9_0', 'ati9_1', 'ati9_2', 'ati9_3', 'ati9_4', 'ati9_5'];
+
+    function ati9(id) {
+        for (let i = 0; i < ATI9.length; i++) {
+            let question = document.getElementById(ATI9[i]);
+            if (question.classList.contains("active_ati9")) {
+                question.classList.remove("active_ati9");
+            }
+        }
+      document.getElementById(ATI9[id]).classList.add("active_ati9");
+      answers = ['0', '1', '2', '3', '4', '5']
+      document.getElementById("ati9").value = answers[id]
+}
+
+
+</script>
+<script type = "text/javascript">
+setTimeout(function() {
+    document.getElementById("submit").disabled = false;
+    }, {{ timer }});
+</script>
+
+<title>Survey</title>
+
+<h1 style="text-align:center;">Questionnaire</h1>
+
+<p style="font-size:20px;">This page contains 9 questions.<br>
+  1 = completely disagree, 2 = largely disagree, 3 = slightly disagree,<br>
+  4 = slightly agree, 5 = largely agree and 6 = strongly agree
+
+</p>
+
+
+<p style="font-size:20px;">1. I like to occupy myself in greater detail with technical systems</p>
+<div class="col-container">
+  <p class="survey_answer" id="ati1_0" onclick="ati1(0);" >
+    1
+  </p>
+  <p class="survey_answer" id="ati1_1" onclick="ati1(1);" >
+    2
+  </p>
+  <p class="survey_answer" id="ati1_2" onclick="ati1(2);">
+    3
+  </p>
+  <p class="survey_answer" id="ati1_3" onclick="ati1(3);">
+    4
+  </p>
+  <p class="survey_answer" id="ati1_4" onclick="ati1(4);">
+    5
+  </p>
+  <p class="survey_answer" id="ati1_5" onclick="ati1(5);">
+    6
+  </p>
+
+</div>
+<br>
+
+<p style="font-size:20px;">2. I like testing the functions of new technical systems</p>
+<div class="col-container">
+  <p class="survey_answer" id="ati2_0" onclick="ati2(0);" >
+    1
+  </p>
+  <p class="survey_answer" id="ati2_1" onclick="ati2(1);" >
+    2
+  </p>
+  <p class="survey_answer" id="ati2_2" onclick="ati2(2);">
+    3
+  </p>
+  <p class="survey_answer" id="ati2_3" onclick="ati2(3);">
+    4
+  </p>
+  <p class="survey_answer" id="ati2_4" onclick="ati2(4);">
+    5
+  </p>
+  <p class="survey_answer" id="ati2_5" onclick="ati2(5);">
+    6
+  </p>
+</div>
+<br>
+
+<p style="font-size:20px;">3. I predominantly deal with technical systems because I have to.</p>
+<div class="col-container">
+  <p class="survey_answer" id="ati3_0" onclick="ati3(0);" >
+    1
+  </p>
+  <p class="survey_answer" id="ati3_1" onclick="ati3(1);" >
+    2
+  </p>
+  <p class="survey_answer" id="ati3_2" onclick="ati3(2);">
+    3
+  </p>
+  <p class="survey_answer" id="ati3_3" onclick="ati3(3);">
+    4
+  </p>
+  <p class="survey_answer" id="ati3_4" onclick="ati3(4);">
+    5
+  </p>
+  <p class="survey_answer" id="ati3_5" onclick="ati3(5);">
+    6
+  </p>
+</div>
+<br>
+
+<p style="font-size:20px;">4. When I have a new technical system in front of me, I try it out intensively.</p>
+<div class="col-container">
+  <p class="survey_answer" id="ati4_0" onclick="ati4(0);" >
+    1
+  </p>
+  <p class="survey_answer" id="ati4_1" onclick="ati4(1);" >
+    2
+  </p>
+  <p class="survey_answer" id="ati4_2" onclick="ati4(2);">
+    3
+  </p>
+  <p class="survey_answer" id="ati4_3" onclick="ati4(3);">
+    4
+  </p>
+  <p class="survey_answer" id="ati4_4" onclick="ati4(4);">
+    5
+  </p>
+  <p class="survey_answer" id="ati4_5" onclick="ati4(5);">
+    6
+  </p>
+</div>
+<br>
+
+<p style="font-size:20px;">5. I enjoy spending time becoming acquainted with a new technical system.</p>
+      <div class="col-container">
+        <p class="survey_answer" id="ati5_0" onclick="ati5(0);" >
+          1
+        </p>
+        <p class="survey_answer" id="ati5_1" onclick="ati5(1);" >
+          2
+        </p>
+        <p class="survey_answer" id="ati5_2" onclick="ati5(2);">
+          3
+        </p>
+        <p class="survey_answer" id="ati5_3" onclick="ati5(3);">
+          4
+        </p>
+        <p class="survey_answer" id="ati5_4" onclick="ati5(4);">
+          5
+        </p>
+        <p class="survey_answer" id="ati5_5" onclick="ati5(5);">
+          6
+        </p>
+      </div>
+<br>
+
+<p style="font-size:20px;">6. It is enough for me that a technical system works; I don’t care how or why.</p>
+      <div class="col-container">
+        <p class="survey_answer" id="ati6_0" onclick="ati6(0);" >
+          1
+        </p>
+        <p class="survey_answer" id="ati6_1" onclick="ati6(1);" >
+          2
+        </p>
+        <p class="survey_answer" id="ati6_2" onclick="ati6(2);">
+          3
+        </p>
+        <p class="survey_answer" id="ati6_3" onclick="ati6(3);">
+          4
+        </p>
+        <p class="survey_answer" id="ati6_4" onclick="ati6(4);">
+          5
+        </p>
+        <p class="survey_answer" id="ati6_5" onclick="ati6(5);">
+          6
+        </p>
+      </div>
+<br>
+
+<p style="font-size:20px;">7. I try to understand how a technical system exactly works.</p>
+      <div class="col-container">
+        <p class="survey_answer" id="ati7_0" onclick="ati7(0);" >
+          1
+        </p>
+        <p class="survey_answer" id="ati7_1" onclick="ati7(1);" >
+          2
+        </p>
+        <p class="survey_answer" id="ati7_2" onclick="ati7(2);">
+          3
+        </p>
+        <p class="survey_answer" id="ati7_3" onclick="ati7(3);">
+          4
+        </p>
+        <p class="survey_answer" id="ati7_4" onclick="ati7(4);">
+          5
+        </p>
+        <p class="survey_answer" id="ati7_5" onclick="ati7(5);">
+          6
+        </p>
+      </div>
+<br>
+
+<p style="font-size:20px;">8. It is enough for me to know the basic functions of a technical system.</p>
+      <div class="col-container">
+        <p class="survey_answer" id="ati8_0" onclick="ati8(0);" >
+          1
+        </p>
+        <p class="survey_answer" id="ati8_1" onclick="ati8(1);" >
+          2
+        </p>
+        <p class="survey_answer" id="ati8_2" onclick="ati8(2);">
+          3
+        </p>
+        <p class="survey_answer" id="ati8_3" onclick="ati8(3);">
+          4
+        </p>
+        <p class="survey_answer" id="ati8_4" onclick="ati8(4);">
+          5
+        </p>
+        <p class="survey_answer" id="ati8_5" onclick="ati8(5);">
+          6
+        </p>
+      </div>
+<br>
+
+<p style="font-size:20px;">9. I try to make full use of the capabilities of a technical system.</p>
+      <div class="col-container">
+        <p class="survey_answer" id="ati9_0" onclick="ati9(0);" >
+          1
+        </p>
+        <p class="survey_answer" id="ati9_1" onclick="ati9(1);" >
+          2
+        </p>
+        <p class="survey_answer" id="ati9_2" onclick="ati9(2);">
+          3
+        </p>
+        <p class="survey_answer" id="ati9_3" onclick="ati9(3);">
+          4
+        </p>
+        <p class="survey_answer" id="ati9_4" onclick="ati9(4);">
+          5
+        </p>
+        <p class="survey_answer" id="ati9_5" onclick="ati9(5);">
+          6
+        </p>
+      </div>
+
+<br><br>
+
+
+
+<form method="POST" action="">
+  {{ form.hidden_tag()}}
+  <input type="hidden" id="ati1" name="ati1">
+  <input type="hidden" id="ati2" name="ati2">
+  <input type="hidden" id="ati3" name="ati3">
+  <input type="hidden" id="ati4" name="ati4">
+  <input type="hidden" id="ati5" name="ati5">
+  <input type="hidden" id="ati6" name="ati6">
+  <input type="hidden" id="ati7" name="ati7">
+  <input type="hidden" id="ati8" name="ati8">
+  <input type="hidden" id="ati9" name="ati9">
+  {{ form.submit(hidden='true', id='form-submit') }}
+  <button class="btn btn-success btn-block js-button" type="submit" id="submit" disabled="disabled">Confirm and continue</button>
+</form>
+
+<style>
+  .survey_answer{
+    text-align:center;
+    border: 3px solid #0C2340;
+    font-size:34px;
+    border-radius: 50%;
+    margin-right: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 60px;
+    width: 60px;
+
+  }
+
+  .active_ati1 {
+    background-color: #0C2340;
+    color: white;
+  }
+
+  .active_ati2 {
+    background-color: #0C2340;
+    color: white;
+  }
+
+  .active_ati3 {
+    background-color: #0C2340;
+    color: white;
+  }
+
+  .active_ati4 {
+    background-color: #0C2340;
+    color: white;
+  }
+
+  .active_ati5 {
+    background-color: #0C2340;
+    color: white;
+  }
+
+  .active_ati6 {
+    background-color: #0C2340;
+    color: white;
+  }
+
+  .active_ati7 {
+    background-color: #0C2340;
+    color: white;
+  }
+
+  .active_ati8 {
+    background-color: #0C2340;
+    color: white;
+  }
+
+  .active_ati9 {
+    background-color: #0C2340;
+    color: white;
+  }
+</style>
+
+
+{% endblock content %}
