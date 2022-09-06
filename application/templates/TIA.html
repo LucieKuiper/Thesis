@@ -4,7 +4,7 @@
 
 
 <script type = "text/javascript">
-let TIA1 = ['tia1_0', 'tia1_1', 'tia1_2', 'tia1_3', 'tia1_4', 'tia1_5'];
+let TIA1 = ['tia1_0', 'tia1_1', 'tia1_2', 'tia1_3', 'tia1_4'];
 
     function tia1(id) {
         for (let i = 0; i < TIA1.length; i++) {
@@ -14,11 +14,11 @@ let TIA1 = ['tia1_0', 'tia1_1', 'tia1_2', 'tia1_3', 'tia1_4', 'tia1_5'];
             }
         }
       document.getElementById(TIA1[id]).classList.add("active_tia1");
-      answers = ['0', '1', '2', '3', '4', '5']
+      answers = ['0', '1', '2', '3', '4']
       document.getElementById("tia1").value = answers[id]
 }
 
-let TIA2 = ['tia2_0', 'tia2_1', 'tia2_2', 'tia2_3', 'tia2_4', 'tia2_5'];
+let TIA2 = ['tia2_0', 'tia2_1', 'tia2_2', 'tia2_3', 'tia2_4'];
 
     function tia2(id) {
         for (let i = 0; i < TIA2.length; i++) {
@@ -28,50 +28,8 @@ let TIA2 = ['tia2_0', 'tia2_1', 'tia2_2', 'tia2_3', 'tia2_4', 'tia2_5'];
             }
         }
       document.getElementById(TIA2[id]).classList.add("active_tia2");
-      answers = ['0', '1', '2', '3', '4', '5']
+      answers = ['0', '1', '2', '3', '4']
       document.getElementById("tia2").value = answers[id]
-}
-
-let TIA3 = ['tia3_0', 'tia3_1', 'tia3_2', 'tia3_3', 'tia3_4', 'tia3_5'];
-
-    function tia3(id) {
-        for (let i = 0; i < TIA3.length; i++) {
-            let question = document.getElementById(TIA3[i]);
-            if (question.classList.contains("active_tia3")) {
-                question.classList.remove("active_tia3");
-            }
-        }
-      document.getElementById(TIA3[id]).classList.add("active_tia3");
-      answers = ['0', '1', '2', '3', '4', '5']
-      document.getElementById("tia3").value = answers[id]
-}
-
-let TIA4 = ['tia4_0', 'tia4_1', 'tia4_2', 'tia4_3', 'tia4_4', 'tia4_5'];
-
-    function tia4(id) {
-        for (let i = 0; i < TIA4.length; i++) {
-            let question = document.getElementById(TIA4[i]);
-            if (question.classList.contains("active_tia4")) {
-                question.classList.remove("active_tia4");
-            }
-        }
-      document.getElementById(TIA4[id]).classList.add("active_tia4");
-      answers = ['0', '1', '2', '3', '4', '5']
-      document.getElementById("tia4").value = answers[id]
-}
-
-let TIA5 = ['tia5_0', 'tia5_1', 'tia5_2', 'tia5_3', 'tia5_4', 'tia5_5'];
-
-    function tia5(id) {
-        for (let i = 0; i < TIA5.length; i++) {
-            let question = document.getElementById(TIA5[i]);
-            if (question.classList.contains("active_tia5")) {
-                question.classList.remove("active_tia5");
-            }
-        }
-      document.getElementById(TIA5[id]).classList.add("active_tia5");
-      answers = ['0', '1', '2', '3', '4', '5']
-      document.getElementById("tia5").value = answers[id]
 }
 
 </script>
@@ -81,14 +39,14 @@ setTimeout(function() {
     }, {{ timer }});
 </script>
 
-<title>Survey</title>
+<title>Questionnaire</title>
 
 <h1 style="text-align:center;">Questionnaire</h1>
-<br><br><br>
-<p style="font-size:20px;">This page contains 5 questions. <br> 1 = completely disagree,
-    2 = largely disagree, 3 = slightly disagree, <br> 4 = slightly agree, 5 = largely agree and 6 = strongly agree </p>
-
 <br>
+<p style="font-size:18px;">
+    Please answer the following questions honestly and to the best of your ability.<br>
+    1 = Strongly disagree, 2 = Rather disagree, 3 = Neither disagree nor agree,<br> 4 = Rather agree, 5 = Strongly agree</p>
+
 <br>
 <br>
 
@@ -109,15 +67,18 @@ setTimeout(function() {
     <p class="survey_answer" id="tia1_4" onclick="tia1(4);">
         5
     </p>
-    <p class="survey_answer" id="tia1_5" onclick="tia1(5);">
-        6
-    </p>
-
+</div>
+<div class="col-container">
+    <p style="font-size:15px; text-align:center;">strongly<br>disagree</p>
+    <p style="font-size:15px; text-align:center; padding-left: 16px;">rather<br>disagree</p>
+    <p style="font-size:13px; text-align:center; padding-left: 14px;">neither <br> disagree<br> nor agree</p>
+    <p style="font-size:15px; text-align:center; padding-left: 24px;">rather<br>agree</p>
+    <p style="font-size:15px; text-align:center; padding-left: 22px;">strongly<br>agree</p>
 </div>
 <br>
 
 <p style="font-size:20px;">2. I can rely on the system</p>
-<div class="col-container">
+<div class="col-container" style="padding-left:4px;">
     <p class="survey_answer" id="tia2_0" onclick="tia2(0);" >
         1
     </p>
@@ -133,87 +94,14 @@ setTimeout(function() {
     <p class="survey_answer" id="tia2_4" onclick="tia2(4);">
         5
     </p>
-    <p class="survey_answer" id="tia2_5" onclick="tia2(5);">
-        6
-    </p>
-
 </div>
-<br>
-
-<p style="font-size:20px;">3. One should be careful with unfamiliar automated systems</p>
 <div class="col-container">
-    <p class="survey_answer" id="tia3_0" onclick="tia3(0);" >
-        1
-    </p>
-    <p class="survey_answer" id="tia3_1" onclick="tia3(1);" >
-        2
-    </p>
-    <p class="survey_answer" id="tia3_2" onclick="tia3(2);">
-        3
-    </p>
-    <p class="survey_answer" id="tia3_3" onclick="tia3(3);">
-        4
-    </p>
-    <p class="survey_answer" id="tia3_4" onclick="tia3(4);">
-        5
-    </p>
-    <p class="survey_answer" id="tia3_5" onclick="tia3(5);">
-        6
-    </p>
-
+    <p style="font-size:15px; text-align:center;">strongly<br>disagree</p>
+    <p style="font-size:15px; text-align:center; padding-left: 16px;">rather<br>disagree</p>
+    <p style="font-size:13px; text-align:center; padding-left: 14px;">neither <br> disagree<br> nor agree</p>
+    <p style="font-size:15px; text-align:center; padding-left: 24px;">rather<br>agree</p>
+    <p style="font-size:15px; text-align:center; padding-left: 22px;">strongly<br>agree</p>
 </div>
-<br>
-
-<p style="font-size:20px;">4. I rather trust a system than I mistrust it</p>
-<div class="col-container">
-    <p class="survey_answer" id="tia4_0" onclick="tia4(0);" >
-        1
-    </p>
-    <p class="survey_answer" id="tia4_1" onclick="tia4(1);" >
-        2
-    </p>
-    <p class="survey_answer" id="tia4_2" onclick="tia4(2);">
-        3
-    </p>
-    <p class="survey_answer" id="tia4_3" onclick="tia4(3);">
-        4
-    </p>
-    <p class="survey_answer" id="tia4_4" onclick="tia4(4);">
-        5
-    </p>
-    <p class="survey_answer" id="tia4_5" onclick="tia4(5);">
-        6
-    </p>
-
-</div>
-<br>
-
-<p style="font-size:20px;">5. Automated systems generally work well</p>
-<div class="col-container">
-    <p class="survey_answer" id="tia5_0" onclick="tia5(0);" >
-        1
-    </p>
-    <p class="survey_answer" id="tia5_1" onclick="tia5(1);" >
-        2
-    </p>
-    <p class="survey_answer" id="tia5_2" onclick="tia5(2);">
-        3
-    </p>
-    <p class="survey_answer" id="tia5_3" onclick="tia5(3);">
-        4
-    </p>
-    <p class="survey_answer" id="tia5_4" onclick="tia5(4);">
-        5
-    </p>
-    <p class="survey_answer" id="tia5_5" onclick="tia5(5);">
-        6
-    </p>
-
-</div>
-<br>
-
-
-
 <br><br>
 
 
@@ -222,9 +110,6 @@ setTimeout(function() {
     {{ form.hidden_tag()}}
     <input type="hidden" id="tia1" name="tia1">
     <input type="hidden" id="tia2" name="tia2">
-    <input type="hidden" id="tia3" name="tia3">
-    <input type="hidden" id="tia4" name="tia4">
-    <input type="hidden" id="tia5" name="tia5">
     {{ form.submit(hidden='true', id='form-submit') }}
     <button class="btn btn-success btn-block js-button" type="submit" id="submit" disabled="disabled">Confirm and continue</button>
 </form>
@@ -249,21 +134,6 @@ setTimeout(function() {
   }
 
   .active_tia2 {
-    background-color: #0C2340;
-    color: white;
-  }
-
-  .active_tia3 {
-    background-color: #0C2340;
-    color: white;
-  }
-
-  .active_tia4 {
-    background-color: #0C2340;
-    color: white;
-  }
-
-  .active_tia5 {
     background-color: #0C2340;
     color: white;
   }

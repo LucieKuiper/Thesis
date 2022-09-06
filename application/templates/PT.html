@@ -1,0 +1,190 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+
+<script type = "text/javascript">
+let PT1 = ['pt1_0', 'pt1_1', 'pt1_2', 'pt1_3', 'pt1_4'];
+
+    function pt1(id) {
+        for (let i = 0; i < PT1.length; i++) {
+            let question = document.getElementById(PT1[i]);
+            if (question.classList.contains("active_pt1")) {
+                question.classList.remove("active_pt1");
+            }
+        }
+      document.getElementById(PT1[id]).classList.add("active_pt1");
+      answers = ['0', '1', '2', '3', '4']
+      document.getElementById("pt1").value = answers[id]
+}
+
+let PT2 = ['pt2_0', 'pt2_1', 'pt2_2', 'pt2_3', 'pt2_4'];
+
+    function pt2(id) {
+        for (let i = 0; i < PT2.length; i++) {
+            let question = document.getElementById(PT2[i]);
+            if (question.classList.contains("active_pt2")) {
+                question.classList.remove("active_pt2");
+            }
+        }
+      document.getElementById(PT2[id]).classList.add("active_pt2");
+      answers = ['0', '1', '2', '3', '4']
+      document.getElementById("pt2").value = answers[id]
+}
+
+let PT3 = ['pt3_0', 'pt3_1', 'pt3_2', 'pt3_3', 'pt3_4'];
+
+    function pt3(id) {
+        for (let i = 0; i < PT3.length; i++) {
+            let question = document.getElementById(PT3[i]);
+            if (question.classList.contains("active_pt3")) {
+                question.classList.remove("active_pt3");
+            }
+        }
+      document.getElementById(PT3[id]).classList.add("active_pt3");
+      answers = ['0', '1', '2', '3', '4']
+      document.getElementById("pt3").value = answers[id]
+}
+
+</script>
+<script type = "text/javascript">
+setTimeout(function() {
+    document.getElementById("submit").disabled = false;
+    }, {{ timer }});
+</script>
+
+<title>Questionnaire</title>
+
+<h1 style="text-align:center;">Questionnaire</h1>
+<br>
+<p style="font-size:18px;">
+  Please answer the following questions honestly and to the best of your ability.<br>
+  1 = Strongly disagree, 2 = Rather disagree, 3 = Neither disagree nor agree,<br> 4 = Rather agree, 5 = Strongly agree</p>
+
+<br>
+<br>
+
+<p style="font-size:20px;">1. One should be careful with unfamiliar automated systems</p>
+<div class="col-container">
+  <p class="survey_answer" id="pt1_0" onclick="pt1(0);" >
+    1
+  </p>
+  <p class="survey_answer" id="pt1_1" onclick="pt1(1);" >
+    2
+  </p>
+  <p class="survey_answer" id="pt1_2" onclick="pt1(2);">
+    3
+  </p>
+  <p class="survey_answer" id="pt1_3" onclick="pt1(3);">
+    4
+  </p>
+  <p class="survey_answer" id="pt1_4" onclick="pt1(4);">
+    5
+  </p>
+</div>
+<div class="col-container">
+  <p style="font-size:15px; text-align:center;">strongly<br>disagree</p>
+  <p style="font-size:15px; text-align:center; padding-left: 16px;">rather<br>disagree</p>
+  <p style="font-size:13px; text-align:center; padding-left: 14px;">neither <br> disagree<br> nor agree</p>
+  <p style="font-size:15px; text-align:center; padding-left: 24px;">rather<br>agree</p>
+  <p style="font-size:15px; text-align:center; padding-left: 22px;">strongly<br>agree</p>
+</div>
+<br>
+
+<p style="font-size:20px;">2. I rather trust a system than I mistrust it</p>
+<div class="col-container" style="padding-left:4px;">
+  <p class="survey_answer" id="pt2_0" onclick="pt2(0);" >
+    1
+  </p>
+  <p class="survey_answer" id="pt2_1" onclick="pt2(1);" >
+    2
+  </p>
+  <p class="survey_answer" id="pt2_2" onclick="pt2(2);">
+    3
+  </p>
+  <p class="survey_answer" id="pt2_3" onclick="pt2(3);">
+    4
+  </p>
+  <p class="survey_answer" id="pt2_4" onclick="pt2(4);">
+    5
+  </p>
+</div>
+<div class="col-container">
+  <p style="font-size:15px; text-align:center;">strongly<br>disagree</p>
+  <p style="font-size:15px; text-align:center; padding-left: 16px;">rather<br>disagree</p>
+  <p style="font-size:13px; text-align:center; padding-left: 14px;">neither <br> disagree<br> nor agree</p>
+  <p style="font-size:15px; text-align:center; padding-left: 24px;">rather<br>agree</p>
+  <p style="font-size:15px; text-align:center; padding-left: 22px;">strongly<br>agree</p>
+</div>
+<br>
+
+<p style="font-size:20px;">3. Automated systems generally work well</p>
+<div class="col-container" style="padding-left:4px;">
+  <p class="survey_answer" id="pt3_0" onclick="pt3(0);" >
+    1
+  </p>
+  <p class="survey_answer" id="pt3_1" onclick="pt3(1);" >
+    2
+  </p>
+  <p class="survey_answer" id="pt3_2" onclick="pt3(2);">
+    3
+  </p>
+  <p class="survey_answer" id="pt3_3" onclick="pt3(3);">
+    4
+  </p>
+  <p class="survey_answer" id="pt3_4" onclick="pt3(4);">
+    5
+  </p>
+</div>
+<div class="col-container">
+  <p style="font-size:15px; text-align:center;">strongly<br>disagree</p>
+  <p style="font-size:15px; text-align:center; padding-left: 16px;">rather<br>disagree</p>
+  <p style="font-size:13px; text-align:center; padding-left: 14px;">neither <br> disagree<br> nor agree</p>
+  <p style="font-size:15px; text-align:center; padding-left: 24px;">rather<br>agree</p>
+  <p style="font-size:15px; text-align:center; padding-left: 22px;">strongly<br>agree</p>
+</div>
+<br><br>
+
+
+
+<form method="POST" action="">
+  {{ form.hidden_tag()}}
+  <input type="hidden" id="pt1" name="pt1">
+  <input type="hidden" id="pt2" name="pt2">
+  <input type="hidden" id="pt3" name="pt3">
+  {{ form.submit(hidden='true', id='form-submit') }}
+  <button class="btn btn-success btn-block js-button" type="submit" id="submit" disabled="disabled">Confirm and continue</button>
+</form>
+
+<style>
+  .survey_answer{
+    text-align:center;
+    border: 3px solid #0C2340;
+    font-size:34px;
+    border-radius: 50%;
+    margin-right: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 60px;
+    width: 60px;
+
+  }
+
+  .active_pt1 {
+    background-color: #0C2340;
+    color: white;
+  }
+
+  .active_pt2 {
+    background-color: #0C2340;
+    color: white;
+  }
+
+  .active_pt3 {
+    background-color: #0C2340;
+    color: white;
+  }
+</style>
+
+
+{% endblock content %}

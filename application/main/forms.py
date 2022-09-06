@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import SubmitField, StringField, RadioField, TextField, IntegerField
+from wtforms import SubmitField, StringField, RadioField
 from wtforms.validators import DataRequired
 
 
@@ -35,14 +35,18 @@ class ATI(FlaskForm):
     ati7 = StringField('ATI7', validators=[DataRequired()])
     ati8 = StringField('ATI8', validators=[DataRequired()])
     ati9 = StringField('ATI9', validators=[DataRequired()])
+    ac = StringField('AC', validators=[DataRequired()])
     submit = SubmitField('Confirm and Continue')
 
 
 class TIA(FlaskForm):
     tia1 = StringField('TIA1', validators=[DataRequired()])
     tia2 = StringField('TIA2', validators=[DataRequired()])
-    tia3 = StringField('TIA3', validators=[DataRequired()])
-    tia4 = StringField('TIA4', validators=[DataRequired()])
-    tia5 = StringField('TIA5', validators=[DataRequired()])
+    submit = SubmitField('Confirm and Continue')
 
+
+class PT(FlaskForm):
+    pt1 = StringField('PT1', validators=[DataRequired()])
+    pt2 = StringField('PT2', validators=[DataRequired()])
+    pt3 = StringField('PT3', validators=[DataRequired()])
     submit = SubmitField('Confirm and Continue')

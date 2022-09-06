@@ -2,7 +2,7 @@ from flask import render_template, url_for, redirect, request, flash, Blueprint
 from application import load_data, db
 from flask_login import login_user, current_user, login_required
 from application.main.models import User, AIUser
-from application.main.forms import LoginForm, OtherForm, Survey, ATI, TIA
+from application.main.forms import LoginForm, OtherForm, Survey, ATI, TIA, PT
 from random import randint
 
 ai_advice = Blueprint('ai_advice', __name__, url_prefix='/ai')
@@ -103,11 +103,11 @@ def introduction():
     user = AIUser.query.filter_by(user_id=current_user.id).first()
     timer = 5000
     if user.previous == 'F':
-        return redirect(url_for('ai_advice.attention_check'))
+        return redirect(url_for('ai_advice.ati'))
     if request.method == 'POST':
         user.previous = 'F'
         db.session.commit()
-        return redirect(url_for('ai_advice.attention_check'))
+        return redirect(url_for('ai_advice.ati'))
     return render_template('introductionAI.html', form=form, timer=timer)
 
 
@@ -145,15 +145,17 @@ def questions():
         return redirect(url_for('ai_advice.last_set'))
 
     if question_number == 6 or question_number == 11 or question_number == 18:
-        timer = 10000
+        timer = 5000
 
     if question_number != 6 and question_number != 11 and question_number != 18 and getattr(user, "advice{}".format(
             question_number)) is None and getattr(user, "question{}".format(question_number)) is not None:
         return redirect(url_for('ai_advice.AIAdvice'))
 
     # Check if enough attention checks answered correctly
-    if (counter > 9) and (counter < 17):
+    if (counter > 4) and (counter < 17):
         wrong_answers = 0
+        if user.attention6 != '3':
+            wrong_answers += 1
         if user.attention6 != 'B' and user.attention6 is not None:
             wrong_answers += 1
         if user.attention11 != 'D' and user.attention11 is not None:
@@ -204,7 +206,7 @@ def AIAdvice():
     question_number = question_order_list[user.question_order][counter]
     old_answer = user.previous
     show = counter
-    timer = 10000
+    timer = 5000
 
     if question_number == 6 or question_number == 11 or question_number == 18:
         return redirect(url_for('ai_advice.questions'))
@@ -490,49 +492,32 @@ def last_set():
     return render_template('lastSet.html', form=form)
 
 
-# Attention check directly after introduction
-@ai_advice.route("/question", methods=['GET', 'POST'])
-@login_required
-def attention_check():
-    timer = 5000
-    form = OtherForm()
-    user = AIUser.query.filter_by(user_id=current_user.id).first()
-    if form.validate_on_submit() and form.answer.data == 'C':
-        return redirect(url_for('ai_advice.ati'))
-    elif form.validate_on_submit() and (form.answer.data == 'A' or form.answer.data == 'B' or form.answer.data == 'D'):
-        return redirect(url_for('ai_advice.final'))  # to be replaced with kickout
-    elif request.method == 'POST':
-        flash('No answer found, please select an answer', 'danger')
-
-    return render_template('attention.html', form=form, timer=timer)
-
-
 # Starting questions on technology
 @ai_advice.route("/startQ", methods=['GET', 'POST'])
 @login_required
 def ati():
     form = ATI()
     user = AIUser.query.filter_by(user_id=current_user.id).first()
-    timer = 20000
+    timer = 30000
     # Check if all answers are valid answers
-    if form.validate_on_submit() and (form.ati1.data == '0' or form.ati1.data == '1' or form.ati1.data == '2' or
-                                      form.ati1.data == '3' or form.ati1.data == '4' or form.ati1.data == '5') and (
-            form.ati2.data == '0' or form.ati2.data == '1' or form.ati2.data == '2' or form.ati2.data == '3' or
-            form.ati2.data == '4' or form.ati2.data == '5') and (form.ati3.data == '0' or form.ati3.data == '1' or
-                                                                 form.ati3.data == '2' or form.ati3.data == '3' or
-                                                                 form.ati3.data == '4' or form.ati3.data == '5') and (
-            form.ati4.data == '0' or form.ati4.data == '1' or form.ati4.data == '2' or form.ati4.data == '3' or
-            form.ati4.data == '4' or form.ati4.data == '5') and (form.ati5.data == '0' or form.ati5.data == '1' or
-                                                                 form.ati5.data == '2' or form.ati5.data == '3' or
-                                                                 form.ati5.data == '4' or form.ati5.data == '5') and (
-            form.ati6.data == '0' or form.ati6.data == '1' or form.ati6.data == '2' or form.ati6.data == '3' or
-            form.ati6.data == '4' or form.ati6.data == '5') and (form.ati7.data == '0' or form.ati7.data == '1' or
-                                                                 form.ati7.data == '2' or form.ati7.data == '3' or
-                                                                 form.ati7.data == '4' or form.ati7.data == '5') and (
-            form.ati8.data == '0' or form.ati8.data == '1' or form.ati8.data == '2' or form.ati8.data == '3' or
-            form.ati8.data == '4' or form.ati8.data == '5') and (form.ati9.data == '0' or form.ati9.data == '1' or
-                                                                 form.ati9.data == '2' or form.ati9.data == '3' or
-                                                                 form.ati9.data == '4' or form.ati9.data == '5'):
+    if form.validate_on_submit(): #and (form.ati1.data == '0' or form.ati1.data == '1' or form.ati1.data == '2' or
+                                 #     form.ati1.data == '3' or form.ati1.data == '4' or form.ati1.data == '5') and (
+#            form.ati2.data == '0' or form.ati2.data == '1' or form.ati2.data == '2' or form.ati2.data == '3' or
+#            form.ati2.data == '4' or form.ati2.data == '5') and (form.ati3.data == '0' or form.ati3.data == '1' or
+#                                                                 form.ati3.data == '2' or form.ati3.data == '3' or
+#                                                                 form.ati3.data == '4' or form.ati3.data == '5') and (
+#            form.ati4.data == '0' or form.ati4.data == '1' or form.ati4.data == '2' or form.ati4.data == '3' or
+#            form.ati4.data == '4' or form.ati4.data == '5') and (form.ati5.data == '0' or form.ati5.data == '1' or
+#                                                                 form.ati5.data == '2' or form.ati5.data == '3' or
+#                                                                 form.ati5.data == '4' or form.ati5.data == '5') and (
+#            form.ati6.data == '0' or form.ati6.data == '1' or form.ati6.data == '2' or form.ati6.data == '3' or
+#            form.ati6.data == '4' or form.ati6.data == '5') and (form.ati7.data == '0' or form.ati7.data == '1' or
+#                                                                 form.ati7.data == '2' or form.ati7.data == '3' or
+#                                                                 form.ati7.data == '4' or form.ati7.data == '5') and (
+#            form.ati8.data == '0' or form.ati8.data == '1' or form.ati8.data == '2' or form.ati8.data == '3' or
+#            form.ati8.data == '4' or form.ati8.data == '5') and (form.ati9.data == '0' or form.ati9.data == '1' or
+#                                                                 form.ati9.data == '2' or form.ati9.data == '3' or
+#                                                                 form.ati9.data == '4' or form.ati9.data == '5'):
 
         if user.ati1 is not None:
             flash('There are already answers for this questionnaire you can not answer them again', 'danger')
@@ -547,9 +532,10 @@ def ati():
             user.ati7 = form.ati7.data
             user.ati8 = form.ati8.data
             user.ati9 = form.ati9.data
+            user.attention_ati = form.ac.data
             db.session.commit()
 
-        return redirect(url_for('ai_advice.questions'))
+        return redirect(url_for('ai_advice.pt'))
 
     elif request.method == 'POST':
         flash('Not all answers found, please select an answer for all questions', 'danger')
@@ -563,18 +549,12 @@ def tia():
     form = TIA()
     user = AIUser.query.filter_by(user_id=current_user.id).first()
     counter = user.task_counter
-    timer = 10000
+    timer = 6000
     # Check if all answers are valid answers
     if form.validate_on_submit() and (form.tia1.data == '0' or form.tia1.data == '1' or form.tia1.data == '2' or
-                                      form.tia1.data == '3' or form.tia1.data == '4' or form.tia1.data == '5') and (
+                                      form.tia1.data == '3' or form.tia1.data == '4') and (
             form.tia2.data == '0' or form.tia2.data == '1' or form.tia2.data == '2' or form.tia2.data == '3' or
-            form.tia2.data == '4' or form.tia2.data == '5') and (form.tia3.data == '0' or form.tia3.data == '1' or
-                                                                 form.tia3.data == '2' or form.tia3.data == '3' or
-                                                                 form.tia3.data == '4' or form.tia3.data == '5') and (
-            form.tia4.data == '0' or form.tia4.data == '1' or form.tia4.data == '2' or form.tia4.data == '3' or
-            form.tia4.data == '4' or form.tia4.data == '5') and (form.tia5.data == '0' or form.tia5.data == '1' or
-                                                                 form.tia5.data == '2' or form.tia5.data == '3' or
-                                                                 form.tia5.data == '4' or form.tia5.data == '5'):
+            form.tia2.data == '4'):
         if counter < 8:
             if user.tia1_1 is not None:
                 flash('There are already answers for this questionnaire you can not answer them again', 'danger')
@@ -586,9 +566,6 @@ def tia():
             else:
                 user.tia1_1 = form.tia1.data
                 user.tia1_2 = form.tia2.data
-                user.tia1_3 = form.tia3.data
-                user.tia1_4 = form.tia4.data
-                user.tia1_5 = form.tia5.data
                 db.session.commit()
                 # Redirect depending on version
                 if user.tutorial == 0:
@@ -602,12 +579,39 @@ def tia():
             else:
                 user.tia2_1 = form.tia1.data
                 user.tia2_2 = form.tia2.data
-                user.tia2_3 = form.tia3.data
-                user.tia2_4 = form.tia4.data
-                user.tia2_5 = form.tia5.data
                 db.session.commit()
             return redirect(url_for('ai_advice.final'))
 
     elif request.method == 'POST':
         flash('Not all answers found, please select an answer for all questions', 'danger')
     return render_template('TIA.html', form=form, timer=timer)
+
+
+# Questions inbetween
+@ai_advice.route("/startQ2", methods=['GET', 'POST'])
+@login_required
+def pt():
+    form = PT()
+    user = AIUser.query.filter_by(user_id=current_user.id).first()
+    counter = user.task_counter
+    timer = 8000
+    # Check if all answers are valid answers
+    if form.validate_on_submit() and (form.pt1.data == '0' or form.pt1.data == '1' or form.pt1.data == '2' or
+                                      form.pt1.data == '3' or form.pt1.data == '4') and (
+                                              form.pt2.data == '0' or form.pt2.data == '1' or form.pt2.data == '2' or
+                                              form.pt2.data == '3' or form.pt2.data == '4') and (
+                                              form.pt3.data == '0' or form.pt3.data == '1' or form.pt3.data == '2' or
+                                              form.pt3.data == '3' or form.pt3.data == '4'):
+        if user.pt1 is not None:
+            flash('There are already answers for this questionnaire you can not answer them again', 'danger')
+            return redirect(url_for('ai_advice.questions'))
+        else:
+            user.pt1 = form.pt1.data
+            user.pt2 = form.pt2.data
+            user.pt3 = form.pt3.data
+            db.session.commit()
+            return redirect(url_for('ai_advice.questions'))
+
+    elif request.method == 'POST':
+        flash('Not all answers found, please select an answer for all questions', 'danger')
+    return render_template('PT.html', form=form, timer=timer)

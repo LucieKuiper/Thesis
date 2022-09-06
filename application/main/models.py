@@ -140,6 +140,7 @@ class AIUser(db.Model, UserMixin):
     advice16 = db.Column(db.String(1), nullable=True, default=None)
     advice17 = db.Column(db.String(1), nullable=True, default=None)
 
+    attention_ati = db.Column(db.String(1), nullable=True, default=None)
     attention6 = db.Column(db.String(1), nullable=True, default=None)
     attention11 = db.Column(db.String(1), nullable=True, default=None)
     attention18 = db.Column(db.String(1), nullable=True, default=None)
@@ -154,17 +155,14 @@ class AIUser(db.Model, UserMixin):
     ati8 = db.Column(db.String(1), nullable=True, default=None)
     ati9 = db.Column(db.String(1), nullable=True, default=None)
 
+    pt1 = db.Column(db.String(1), nullable=True, default=None)
+    pt2 = db.Column(db.String(1), nullable=True, default=None)
+    pt3 = db.Column(db.String(1), nullable=True, default=None)
+
     tia1_1 = db.Column(db.String(1), nullable=True, default=None)
     tia1_2 = db.Column(db.String(1), nullable=True, default=None)
-    tia1_3 = db.Column(db.String(1), nullable=True, default=None)
-    tia1_4 = db.Column(db.String(1), nullable=True, default=None)
-    tia1_5 = db.Column(db.String(1), nullable=True, default=None)
-
     tia2_1 = db.Column(db.String(1), nullable=True, default=None)
     tia2_2 = db.Column(db.String(1), nullable=True, default=None)
-    tia2_3 = db.Column(db.String(1), nullable=True, default=None)
-    tia2_4 = db.Column(db.String(1), nullable=True, default=None)
-    tia2_5 = db.Column(db.String(1), nullable=True, default=None)
 
     surveySelf1 = db.Column(db.String(1), nullable=True, default=None)
     surveySelf2 = db.Column(db.String(1), nullable=True, default=None)

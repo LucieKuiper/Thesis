@@ -130,6 +130,20 @@ let ATI9 = ['ati9_0', 'ati9_1', 'ati9_2', 'ati9_3', 'ati9_4', 'ati9_5'];
       document.getElementById("ati9").value = answers[id]
 }
 
+let AC = ['ac0', 'ac1', 'ac2', 'ac3', 'ac4', 'ac5'];
+
+    function ac(id) {
+        for (let i = 0; i < AC.length; i++) {
+            let question = document.getElementById(AC[i]);
+            if (question.classList.contains("active_ac")) {
+                question.classList.remove("active_ac");
+            }
+        }
+      document.getElementById(AC[id]).classList.add("active_ac");
+      answers = ['0', '1', '2', '3', '4', '5']
+      document.getElementById("ac").value = answers[id]
+}
+
 
 </script>
 <script type = "text/javascript">
@@ -141,16 +155,17 @@ setTimeout(function() {
 <title>Survey</title>
 
 <h1 style="text-align:center;">Questionnaire</h1>
-
-<p style="font-size:20px;">This page contains 9 questions.<br>
+<br>
+<p style="font-size:18px;">Please answer the following questions honestly and to the best of your ability.<br>
   1 = completely disagree, 2 = largely disagree, 3 = slightly disagree,<br>
   4 = slightly agree, 5 = largely agree and 6 = strongly agree
 
 </p>
-
+<br>
+<br>
 
 <p style="font-size:20px;">1. I like to occupy myself in greater detail with technical systems</p>
-<div class="col-container">
+<div class="col-container" style="padding-left:4px;">
   <p class="survey_answer" id="ati1_0" onclick="ati1(0);" >
     1
   </p>
@@ -169,13 +184,21 @@ setTimeout(function() {
   <p class="survey_answer" id="ati1_5" onclick="ati1(5);">
     6
   </p>
+</div>
+<div class="col-container">
+  <p style="font-size:14px; text-align:center;">completely<br>disagree</p>
+  <p style="font-size:14px; text-align:center; padding-left: 10px;">largely<br>disagree</p>
+  <p style="font-size:14px; text-align:center; padding-left: 18px;">slightly<br>disagree</p>
+  <p style="font-size:14px; text-align:center; padding-left: 20px;">slightly<br>agree</p>
+  <p style="font-size:14px; text-align:center; padding-left: 28px;">largely<br>agree</p>
+  <p style="font-size:14px; text-align:center; padding-left: 18px;">completely<br>agree</p>
 
 </div>
 <br>
 
 <p style="font-size:20px;">2. I like testing the functions of new technical systems</p>
-<div class="col-container">
-  <p class="survey_answer" id="ati2_0" onclick="ati2(0);" >
+<div class="col-container" style="padding-left:4px;">
+  <p class="survey_answer" id="ati2_0" onclick="ati2(0);"  >
     1
   </p>
   <p class="survey_answer" id="ati2_1" onclick="ati2(1);" >
@@ -194,10 +217,20 @@ setTimeout(function() {
     6
   </p>
 </div>
+<div class="col-container">
+  <p style="font-size:14px; text-align:center;">completely<br>disagree</p>
+  <p style="font-size:14px; text-align:center; padding-left: 10px;">largely<br>disagree</p>
+  <p style="font-size:14px; text-align:center; padding-left: 18px;">slightly<br>disagree</p>
+  <p style="font-size:14px; text-align:center; padding-left: 20px;">slightly<br>agree</p>
+  <p style="font-size:14px; text-align:center; padding-left: 28px;">largely<br>agree</p>
+  <p style="font-size:14px; text-align:center; padding-left: 18px;">completely<br>agree</p>
+
+</div>
+
 <br>
 
 <p style="font-size:20px;">3. I predominantly deal with technical systems because I have to.</p>
-<div class="col-container">
+<div class="col-container" style="padding-left:4px;">
   <p class="survey_answer" id="ati3_0" onclick="ati3(0);" >
     1
   </p>
@@ -217,10 +250,44 @@ setTimeout(function() {
     6
   </p>
 </div>
+<div class="col-container">
+  <p style="font-size:14px; text-align:center;">completely<br>disagree</p>
+  <p style="font-size:14px; text-align:center; padding-left: 10px;">largely<br>disagree</p>
+  <p style="font-size:14px; text-align:center; padding-left: 18px;">slightly<br>disagree</p>
+  <p style="font-size:14px; text-align:center; padding-left: 20px;">slightly<br>agree</p>
+  <p style="font-size:14px; text-align:center; padding-left: 28px;">largely<br>agree</p>
+  <p style="font-size:14px; text-align:center; padding-left: 18px;">completely<br>agree</p>
+
+</div>
+
 <br>
 
-<p style="font-size:20px;">4. When I have a new technical system in front of me, I try it out intensively.</p>
-<div class="col-container">
+<p style="font-size:20px;">4.How many multiple choice questions does this experiment have.</p>
+<div class="col-container" style="padding-left:4px;">
+  <p class="survey_answer" id="ac0" onclick="ac(0);" >
+    1
+  </p>
+  <p class="survey_answer" id="ac1" onclick="ac(1);" >
+    2
+  </p>
+  <p class="survey_answer" id="ac2" onclick="ac(2);">
+    3
+  </p>
+  <p class="survey_answer" id="ac3" onclick="ac(3);" style="font-size:30px; padding-top:3px;">
+    16
+  </p>
+  <p class="survey_answer" id="ac4" onclick="ac(4);" style="font-size:26px; padding-top:5px;">
+    80
+  </p>
+  <p class="survey_answer" id="ac5" onclick="ac(5);" style="font-size:22px; padding-top:8px;">
+    240
+  </p>
+</div>
+
+<br>
+
+<p style="font-size:20px;">5. When I have a new technical system in front of me, I try it out intensively.</p>
+<div class="col-container" style="padding-left:4px;">
   <p class="survey_answer" id="ati4_0" onclick="ati4(0);" >
     1
   </p>
@@ -240,10 +307,20 @@ setTimeout(function() {
     6
   </p>
 </div>
+<div class="col-container">
+  <p style="font-size:14px; text-align:center;">completely<br>disagree</p>
+  <p style="font-size:14px; text-align:center; padding-left: 10px;">largely<br>disagree</p>
+  <p style="font-size:14px; text-align:center; padding-left: 18px;">slightly<br>disagree</p>
+  <p style="font-size:14px; text-align:center; padding-left: 20px;">slightly<br>agree</p>
+  <p style="font-size:14px; text-align:center; padding-left: 28px;">largely<br>agree</p>
+  <p style="font-size:14px; text-align:center; padding-left: 18px;">completely<br>agree</p>
+
+</div>
+
 <br>
 
-<p style="font-size:20px;">5. I enjoy spending time becoming acquainted with a new technical system.</p>
-      <div class="col-container">
+<p style="font-size:20px;">6. I enjoy spending time becoming acquainted with a new technical system.</p>
+      <div class="col-container" style="padding-left:4px;">
         <p class="survey_answer" id="ati5_0" onclick="ati5(0);" >
           1
         </p>
@@ -263,10 +340,20 @@ setTimeout(function() {
           6
         </p>
       </div>
+<div class="col-container">
+  <p style="font-size:14px; text-align:center;">completely<br>disagree</p>
+  <p style="font-size:14px; text-align:center; padding-left: 10px;">largely<br>disagree</p>
+  <p style="font-size:14px; text-align:center; padding-left: 18px;">slightly<br>disagree</p>
+  <p style="font-size:14px; text-align:center; padding-left: 20px;">slightly<br>agree</p>
+  <p style="font-size:14px; text-align:center; padding-left: 28px;">largely<br>agree</p>
+  <p style="font-size:14px; text-align:center; padding-left: 18px;">completely<br>agree</p>
+
+</div>
+
 <br>
 
-<p style="font-size:20px;">6. It is enough for me that a technical system works; I don’t care how or why.</p>
-      <div class="col-container">
+<p style="font-size:20px;">7. It is enough for me that a technical system works; I don’t care how or why.</p>
+      <div class="col-container" style="padding-left:4px;">
         <p class="survey_answer" id="ati6_0" onclick="ati6(0);" >
           1
         </p>
@@ -286,10 +373,20 @@ setTimeout(function() {
           6
         </p>
       </div>
+<div class="col-container">
+  <p style="font-size:14px; text-align:center;">completely<br>disagree</p>
+  <p style="font-size:14px; text-align:center; padding-left: 10px;">largely<br>disagree</p>
+  <p style="font-size:14px; text-align:center; padding-left: 18px;">slightly<br>disagree</p>
+  <p style="font-size:14px; text-align:center; padding-left: 20px;">slightly<br>agree</p>
+  <p style="font-size:14px; text-align:center; padding-left: 28px;">largely<br>agree</p>
+  <p style="font-size:14px; text-align:center; padding-left: 18px;">completely<br>agree</p>
+
+</div>
+
 <br>
 
-<p style="font-size:20px;">7. I try to understand how a technical system exactly works.</p>
-      <div class="col-container">
+<p style="font-size:20px;">8. I try to understand how a technical system exactly works.</p>
+      <div class="col-container" style="padding-left:4px;">
         <p class="survey_answer" id="ati7_0" onclick="ati7(0);" >
           1
         </p>
@@ -309,10 +406,20 @@ setTimeout(function() {
           6
         </p>
       </div>
+<div class="col-container">
+  <p style="font-size:14px; text-align:center;">completely<br>disagree</p>
+  <p style="font-size:14px; text-align:center; padding-left: 10px;">largely<br>disagree</p>
+  <p style="font-size:14px; text-align:center; padding-left: 18px;">slightly<br>disagree</p>
+  <p style="font-size:14px; text-align:center; padding-left: 20px;">slightly<br>agree</p>
+  <p style="font-size:14px; text-align:center; padding-left: 28px;">largely<br>agree</p>
+  <p style="font-size:14px; text-align:center; padding-left: 18px;">completely<br>agree</p>
+
+</div>
+
 <br>
 
-<p style="font-size:20px;">8. It is enough for me to know the basic functions of a technical system.</p>
-      <div class="col-container">
+<p style="font-size:20px;">9. It is enough for me to know the basic functions of a technical system.</p>
+      <div class="col-container" style="padding-left:4px;">
         <p class="survey_answer" id="ati8_0" onclick="ati8(0);" >
           1
         </p>
@@ -332,10 +439,19 @@ setTimeout(function() {
           6
         </p>
       </div>
+<div class="col-container">
+  <p style="font-size:14px; text-align:center;">completely<br>disagree</p>
+  <p style="font-size:14px; text-align:center; padding-left: 10px;">largely<br>disagree</p>
+  <p style="font-size:14px; text-align:center; padding-left: 18px;">slightly<br>disagree</p>
+  <p style="font-size:14px; text-align:center; padding-left: 20px;">slightly<br>agree</p>
+  <p style="font-size:14px; text-align:center; padding-left: 28px;">largely<br>agree</p>
+  <p style="font-size:14px; text-align:center; padding-left: 18px;">completely<br>agree</p>
+
+</div>
 <br>
 
-<p style="font-size:20px;">9. I try to make full use of the capabilities of a technical system.</p>
-      <div class="col-container">
+<p style="font-size:20px;">10. I try to make full use of the capabilities of a technical system.</p>
+      <div class="col-container" style="padding-left:4px;">
         <p class="survey_answer" id="ati9_0" onclick="ati9(0);" >
           1
         </p>
@@ -355,6 +471,15 @@ setTimeout(function() {
           6
         </p>
       </div>
+<div class="col-container">
+  <p style="font-size:14px; text-align:center;">completely<br>disagree</p>
+  <p style="font-size:14px; text-align:center; padding-left: 10px;">largely<br>disagree</p>
+  <p style="font-size:14px; text-align:center; padding-left: 18px;">slightly<br>disagree</p>
+  <p style="font-size:14px; text-align:center; padding-left: 20px;">slightly<br>agree</p>
+  <p style="font-size:14px; text-align:center; padding-left: 28px;">largely<br>agree</p>
+  <p style="font-size:14px; text-align:center; padding-left: 18px;">completely<br>agree</p>
+
+</div>
 
 <br><br>
 
@@ -371,6 +496,7 @@ setTimeout(function() {
   <input type="hidden" id="ati7" name="ati7">
   <input type="hidden" id="ati8" name="ati8">
   <input type="hidden" id="ati9" name="ati9">
+  <input type="hidden" id="ac" name="ac">
   {{ form.submit(hidden='true', id='form-submit') }}
   <button class="btn btn-success btn-block js-button" type="submit" id="submit" disabled="disabled">Confirm and continue</button>
 </form>
@@ -433,6 +559,12 @@ setTimeout(function() {
     background-color: #0C2340;
     color: white;
   }
+
+  .active_ac {
+    background-color: #0C2340;
+    color: white;
+  }
+
 </style>
 
 
