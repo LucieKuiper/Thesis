@@ -101,7 +101,7 @@ def done():
 def introduction():
     form = LoginForm()
     user = AIUser.query.filter_by(user_id=current_user.id).first()
-    timer = 5000
+    timer = 8000
     if user.previous == 'F':
         return redirect(url_for('ai_advice.ati'))
     if request.method == 'POST':
@@ -154,7 +154,7 @@ def questions():
     # Check if enough attention checks answered correctly
     if (counter > 4) and (counter < 17):
         wrong_answers = 0
-        if user.attention6 != '3':
+        if user.attention_ati != '3':
             wrong_answers += 1
         if user.attention6 != 'B' and user.attention6 is not None:
             wrong_answers += 1
@@ -163,7 +163,7 @@ def questions():
         if user.attention18 != 'C' and user.attention18 is not None:
             wrong_answers += 1
         if wrong_answers >= 2:
-            return redirect(url_for('ai_advice.final'))  # change for prolific kickout
+            return redirect("https://app.prolific.co/submissions/complete?cc=C1IW4GQH")
 
     # Load in questions from data set
     data_context = questions_list.iloc[question_number][0]
@@ -500,24 +500,26 @@ def ati():
     user = AIUser.query.filter_by(user_id=current_user.id).first()
     timer = 30000
     # Check if all answers are valid answers
-    if form.validate_on_submit(): #and (form.ati1.data == '0' or form.ati1.data == '1' or form.ati1.data == '2' or
-                                 #     form.ati1.data == '3' or form.ati1.data == '4' or form.ati1.data == '5') and (
-#            form.ati2.data == '0' or form.ati2.data == '1' or form.ati2.data == '2' or form.ati2.data == '3' or
-#            form.ati2.data == '4' or form.ati2.data == '5') and (form.ati3.data == '0' or form.ati3.data == '1' or
-#                                                                 form.ati3.data == '2' or form.ati3.data == '3' or
-#                                                                 form.ati3.data == '4' or form.ati3.data == '5') and (
-#            form.ati4.data == '0' or form.ati4.data == '1' or form.ati4.data == '2' or form.ati4.data == '3' or
-#            form.ati4.data == '4' or form.ati4.data == '5') and (form.ati5.data == '0' or form.ati5.data == '1' or
-#                                                                 form.ati5.data == '2' or form.ati5.data == '3' or
-#                                                                 form.ati5.data == '4' or form.ati5.data == '5') and (
-#            form.ati6.data == '0' or form.ati6.data == '1' or form.ati6.data == '2' or form.ati6.data == '3' or
-#            form.ati6.data == '4' or form.ati6.data == '5') and (form.ati7.data == '0' or form.ati7.data == '1' or
-#                                                                 form.ati7.data == '2' or form.ati7.data == '3' or
-#                                                                 form.ati7.data == '4' or form.ati7.data == '5') and (
-#            form.ati8.data == '0' or form.ati8.data == '1' or form.ati8.data == '2' or form.ati8.data == '3' or
-#            form.ati8.data == '4' or form.ati8.data == '5') and (form.ati9.data == '0' or form.ati9.data == '1' or
-#                                                                 form.ati9.data == '2' or form.ati9.data == '3' or
-#                                                                 form.ati9.data == '4' or form.ati9.data == '5'):
+    if form.validate_on_submit() and (form.ati1.data == '0' or form.ati1.data == '1' or form.ati1.data == '2' or
+                                      form.ati1.data == '3' or form.ati1.data == '4' or form.ati1.data == '5') and (
+            form.ati2.data == '0' or form.ati2.data == '1' or form.ati2.data == '2' or form.ati2.data == '3' or
+            form.ati2.data == '4' or form.ati2.data == '5') and (form.ati3.data == '0' or form.ati3.data == '1' or
+                                                                 form.ati3.data == '2' or form.ati3.data == '3' or
+                                                                 form.ati3.data == '4' or form.ati3.data == '5') and (
+            form.ati4.data == '0' or form.ati4.data == '1' or form.ati4.data == '2' or form.ati4.data == '3' or
+            form.ati4.data == '4' or form.ati4.data == '5') and (form.ati5.data == '0' or form.ati5.data == '1' or
+                                                                 form.ati5.data == '2' or form.ati5.data == '3' or
+                                                                 form.ati5.data == '4' or form.ati5.data == '5') and (
+            form.ati6.data == '0' or form.ati6.data == '1' or form.ati6.data == '2' or form.ati6.data == '3' or
+            form.ati6.data == '4' or form.ati6.data == '5') and (form.ati7.data == '0' or form.ati7.data == '1' or
+                                                                 form.ati7.data == '2' or form.ati7.data == '3' or
+                                                                 form.ati7.data == '4' or form.ati7.data == '5') and (
+            form.ati8.data == '0' or form.ati8.data == '1' or form.ati8.data == '2' or form.ati8.data == '3' or
+            form.ati8.data == '4' or form.ati8.data == '5') and (form.ati9.data == '0' or form.ati9.data == '1' or
+                                                                 form.ati9.data == '2' or form.ati9.data == '3' or
+                                                                 form.ati9.data == '4' or form.ati9.data == '5') and (
+            form.ac.data == '0' or form.ac.data == '1' or form.ac.data == '2' or form.ac.data == '3' or form.ac.data
+            == '4' or form.ac.data == '5'):
 
         if user.ati1 is not None:
             flash('There are already answers for this questionnaire you can not answer them again', 'danger')
@@ -575,12 +577,12 @@ def tia():
         else:
             if user.tia2_1 is not None:
                 flash('There are already answers for this questionnaire you can not answer them again', 'danger')
-                return redirect(url_for('ai_advice.final'))
+                return redirect(url_for('ai_advice.done'))
             else:
                 user.tia2_1 = form.tia1.data
                 user.tia2_2 = form.tia2.data
                 db.session.commit()
-            return redirect(url_for('ai_advice.final'))
+            return redirect("https://app.prolific.co/submissions/complete?cc=CZNJ4C8V")
 
     elif request.method == 'POST':
         flash('Not all answers found, please select an answer for all questions', 'danger')
