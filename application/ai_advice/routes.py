@@ -498,7 +498,7 @@ def last_set():
 def ati():
     form = ATI()
     user = AIUser.query.filter_by(user_id=current_user.id).first()
-    timer = 30000
+    timer = 25000
     # Check if all answers are valid answers
     if form.validate_on_submit() and (form.ati1.data == '0' or form.ati1.data == '1' or form.ati1.data == '2' or
                                       form.ati1.data == '3' or form.ati1.data == '4' or form.ati1.data == '5') and (
@@ -551,7 +551,7 @@ def tia():
     form = TIA()
     user = AIUser.query.filter_by(user_id=current_user.id).first()
     counter = user.task_counter
-    timer = 6000
+    timer = 4000
     # Check if all answers are valid answers
     if form.validate_on_submit() and (form.tia1.data == '0' or form.tia1.data == '1' or form.tia1.data == '2' or
                                       form.tia1.data == '3' or form.tia1.data == '4') and (
@@ -596,7 +596,7 @@ def pt():
     form = PT()
     user = AIUser.query.filter_by(user_id=current_user.id).first()
     counter = user.task_counter
-    timer = 8000
+    timer = 6000
     # Check if all answers are valid answers
     if form.validate_on_submit() and (form.pt1.data == '0' or form.pt1.data == '1' or form.pt1.data == '2' or
                                       form.pt1.data == '3' or form.pt1.data == '4') and (
