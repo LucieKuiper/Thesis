@@ -163,7 +163,7 @@ def questions():
         if user.attention18 != 'C' and user.attention18 is not None:
             wrong_answers += 1
         if wrong_answers >= 2:
-            return redirect("https://app.prolific.co/submissions/complete?cc=C1IW4GQH")
+            return redirect("https://app.prolific.co/submissions/complete?cc=C1IW4GQH") # Prolific kickout
 
     # Load in questions from data set
     data_context = questions_list.iloc[question_number][0]
