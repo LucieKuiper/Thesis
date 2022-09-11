@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+<!-- <link rel="stylesheet" href="./application/static/main.css"> -->
+{% block content %}
+<title>Instruction</title>
+<h1 style="text-align:center">Instruction</h1>
+<p style="text-align:center; font-size:20px; padding: 1em; padding-top:50px;" >
+    When the AI advice is shown, some sections in the text will be highlighted to show how the AI advice constructed
+</p>
+<form method="POST" action="" style="padding-top:100px;">
+    {{ form.submit(class="btn btn-success btn-block") }}
+</form>
+
+
+{% endblock content%}

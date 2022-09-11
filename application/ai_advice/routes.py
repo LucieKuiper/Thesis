@@ -23,7 +23,7 @@ question_order_list = [question0, question1, question2, question3, question4, qu
                        question8, question9]
 
 
-# Route to create user from userID given by prolific and continues to next page with tutorial
+# Route to create user from userID given by prolific and continues to next page with tutorial without XAI
 @ai_advice.route("/version1/", methods=['GET', 'POST'])
 def start_tut():
     username = request.args.get('PROLIFIC_PID')
@@ -35,7 +35,7 @@ def start_tut():
         db.session.commit()
         login_user(user)
         order = randint(0, 9)
-        ai_user = AIUser(username=username, AI_user=current_user, tutorial=0, question_order=order)
+        ai_user = AIUser(username=username, AI_user=current_user, tutorial=0, XAI=0, question_order=order)
         db.session.add(ai_user)
         db.session.commit()
         return redirect(url_for('ai_advice.introduction'))
@@ -56,7 +56,7 @@ def start_tut():
                 return redirect(url_for('ai_advice.introduction'))
 
 
-# Route to create user from userID given by prolific and continues to next page without tutorial
+# Route to create user from userID given by prolific and continues to next page without tutorial without XAI
 @ai_advice.route("/version2/", methods=['GET', 'POST'])
 def start_no_tut():
     username = request.args.get('PROLIFIC_PID')
@@ -68,7 +68,7 @@ def start_no_tut():
         db.session.commit()
         login_user(user)
         order = randint(0, 9)
-        ai_user = AIUser(username=username, AI_user=current_user, tutorial=1, question_order=order)
+        ai_user = AIUser(username=username, AI_user=current_user, tutorial=1, XAI=0, question_order=order)
         db.session.add(ai_user)
         db.session.commit()
         return redirect(url_for('ai_advice.introduction'))
@@ -88,6 +88,71 @@ def start_no_tut():
                 db.session.commit()
                 return redirect(url_for('ai_advice.introduction'))
 
+
+# Route to create user from userID given by prolific and continues to next page without tutorial with XAI
+@ai_advice.route("/version3/", methods=['GET', 'POST'])
+def start_no_tut_XAI():
+    username = request.args.get('PROLIFIC_PID')
+    exsits = User.query.filter_by(username=username).first()
+    # Check if new account and needs to be created, and create if needed
+    if exsits is None:
+        user = User(username=username, ai_started=True)
+        db.session.add(user)
+        db.session.commit()
+        login_user(user)
+        order = randint(0, 9)
+        ai_user = AIUser(username=username, AI_user=current_user, tutorial=1, XAI=1, question_order=order)
+        db.session.add(ai_user)
+        db.session.commit()
+        return redirect(url_for('ai_advice.introduction'))
+    # Logs in if account already existent and check whether has done survey already
+    else:
+        user = User.query.filter_by(username=username).first()
+        login_user(user)
+        if user.ai_done:
+            return redirect(url_for('ai_advice.done'))
+        else:
+            if user.ai_started:
+                return redirect(url_for('ai_advice.go_on'))
+            else:
+                current_user.ai_started = True
+                ai_user = AIUser(username=username, AI_user=current_user)
+                db.session.add(ai_user)
+                db.session.commit()
+                return redirect(url_for('ai_advice.introduction'))
+
+
+# Route to create user from userID given by prolific and continues to next page with tutorial with XAI
+@ai_advice.route("/version4/", methods=['GET', 'POST'])
+def start_tut_XAI():
+    username = request.args.get('PROLIFIC_PID')
+    exsits = User.query.filter_by(username=username).first()
+    # Check if new account and needs to be created, and create if needed
+    if exsits is None:
+        user = User(username=username, ai_started=True)
+        db.session.add(user)
+        db.session.commit()
+        login_user(user)
+        order = randint(0, 9)
+        ai_user = AIUser(username=username, AI_user=current_user, tutorial=0, XAI=1, question_order=order)
+        db.session.add(ai_user)
+        db.session.commit()
+        return redirect(url_for('ai_advice.introduction'))
+    # Logs in if account already existent and check whether has done survey already
+    else:
+        user = User.query.filter_by(username=username).first()
+        login_user(user)
+        if user.ai_done:
+            return redirect(url_for('ai_advice.done'))
+        else:
+            if user.ai_started:
+                return redirect(url_for('ai_advice.go_on'))
+            else:
+                current_user.ai_started = True
+                ai_user = AIUser(username=username, AI_user=current_user)
+                db.session.add(ai_user)
+                db.session.commit()
+                return redirect(url_for('ai_advice.introduction'))
 
 # Page for users that have done survey already
 @ai_advice.route("/done")
@@ -102,13 +167,14 @@ def introduction():
     form = LoginForm()
     user = AIUser.query.filter_by(user_id=current_user.id).first()
     timer = 8000
+    xai = user.XAI
     if user.previous == 'F':
         return redirect(url_for('ai_advice.ati'))
     if request.method == 'POST':
         user.previous = 'F'
         db.session.commit()
         return redirect(url_for('ai_advice.ati'))
-    return render_template('introductionAI.html', form=form, timer=timer)
+    return render_template('introductionAI.html', form=form, timer=timer, xai=xai)
 
 
 # Route to iterate over all questions
@@ -206,6 +272,7 @@ def AIAdvice():
     question_number = question_order_list[user.question_order][counter]
     old_answer = user.previous
     show = counter
+    XAI = user.XAI
     timer = 5000
 
     if question_number == 6 or question_number == 11 or question_number == 18:
@@ -268,7 +335,7 @@ def AIAdvice():
     return render_template('AIquestions.html', form=form, context=data_context, question=data_question,
                            answer0=data_answer0, answer1=data_answer1, answer2=data_answer2, answer3=data_answer3,
                            counter=counter, list=list, advice=data_advice, old_answer=old_answer, show=show,
-                           timer=timer)
+                           timer=timer, question_number=question_number, xai=XAI)
 
 
 # Tutorial page, that also gives feedback
@@ -447,8 +514,14 @@ def correct():
 @login_required
 def go_on():
     form = LoginForm()
+    user = AIUser.query.filter_by(user_id=current_user.id).first()
     if request.method == 'POST':
-        return redirect(url_for('ai_advice.questions'))
+        if user.ati1 is None:
+            return redirect(url_for('ai_advice.ati'))
+        elif user.pt1 is None:
+            return redirect(url_for('ai_advice.pt'))
+        else:
+            return redirect(url_for('ai_advice.questions'))
     return render_template('continue.html', form=form)
 
 
@@ -577,12 +650,18 @@ def tia():
         else:
             if user.tia2_1 is not None:
                 flash('There are already answers for this questionnaire you can not answer them again', 'danger')
-                return redirect(url_for('ai_advice.done'))
+                if user.XAI == 0:
+                    return redirect(url_for('ai_advice.done'))
+                else:
+                    return redirect(url_for('ai_advice.xaiq'))
             else:
                 user.tia2_1 = form.tia1.data
                 user.tia2_2 = form.tia2.data
                 db.session.commit()
-            return redirect("https://app.prolific.co/submissions/complete?cc=CZNJ4C8V")
+            if user.XAI == 0:
+                return redirect("https://app.prolific.co/submissions/complete?cc=CZNJ4C8V")
+            else:
+                return redirect(url_for('ai_advice.xaiq'))
 
     elif request.method == 'POST':
         flash('Not all answers found, please select an answer for all questions', 'danger')
@@ -612,8 +691,47 @@ def pt():
             user.pt2 = form.pt2.data
             user.pt3 = form.pt3.data
             db.session.commit()
-            return redirect(url_for('ai_advice.questions'))
+            if user.XAI == 0:
+                return redirect(url_for('ai_advice.questions'))
+            else:
+                return redirect(url_for('ai_advice.xai_instruction'))
 
     elif request.method == 'POST':
         flash('Not all answers found, please select an answer for all questions', 'danger')
     return render_template('PT.html', form=form, timer=timer)
+
+
+# Questions about xai
+@ai_advice.route("/Q2", methods=['GET', 'POST'])
+@login_required
+def xaiq():
+    form = OtherForm()
+    user = AIUser.query.filter_by(user_id=current_user.id).first()
+    timer = 3000
+    # Check if all answers are valid answers
+    if form.validate_on_submit() and (form.xaiq.data == '0' or form.xaiq.data == '1' or form.xaiq.data == '2' or
+                                      form.xaiq.data == '3' or form.xaiq.data == '4'):
+        if user.xai_question is not None:
+            flash('There are already answers for this questionnaire you can not answer them again', 'danger')
+            return redirect(url_for('ai_advice.done'))
+        else:
+            user.xai_question = form.xaiq.data
+            db.session.commit()
+            return redirect("https://app.prolific.co/submissions/complete?cc=CZNJ4C8V")
+
+    elif request.method == 'POST':
+        flash('Not all answers found, please select an answer for all questions', 'danger')
+    return render_template('XAIquestion.html', form=form, timer=timer)
+
+
+# Instruction for XAI version
+@ai_advice.route("/instruction", methods=['GET', 'POST'])
+@login_required
+def xai_instruction():
+    form = LoginForm()
+    user = AIUser.query.filter_by(user_id=current_user.id).first()
+    timer = 3000
+    xai = user.XAI
+    if request.method == 'POST':
+        return redirect(url_for('ai_advice.questions'))
+    return render_template('XAIinstruction.html', form=form, timer=timer, xai=xai)

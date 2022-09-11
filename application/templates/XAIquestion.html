@@ -1,0 +1,97 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+
+<script type = "text/javascript">
+let XAIQ = ['xaiq0', 'xaiq1', 'xaiq2', 'xaiq3', 'xaiq4'];
+
+    function xaiq(id) {
+        for (let i = 0; i < XAIQ.length; i++) {
+            let question = document.getElementById(XAIQ[i]);
+            if (question.classList.contains("active_xaiq")) {
+                question.classList.remove("active_xaiq");
+            }
+        }
+      document.getElementById(XAIQ[id]).classList.add("active_xaiq");
+      answers = ['0', '1', '2', '3', '4']
+      document.getElementById("xaiq").value = answers[id]
+}
+
+</script>
+<script type = "text/javascript">
+setTimeout(function() {
+    document.getElementById("submit").disabled = false;
+    }, {{ timer }});
+</script>
+
+<title>Questionnaire</title>
+
+<h1 style="text-align:center;">Questionnaire</h1>
+<br>
+<p style="font-size:18px;">
+    Please answer the following question honestly and to the best of your ability.<br>
+    1 = Not at all helpful, 2 = Slightly helpful, 3 = Rather helpful,<br> 4 = Helpful, 5 = Very Helpful</p>
+
+<br>
+<br>
+
+<p style="font-size:20px;">1. To what extent was the explanation (i.e., the highlighted words/phrases) helpful in making your final decision?</p>
+<div class="col-container" style="padding-left:4px;">
+    <p class="survey_answer" id="xaiq0" onclick="xaiq(0);" >
+        1
+    </p>
+    <p class="survey_answer" id="xaiq1" onclick="xaiq(1);" >
+        2
+    </p>
+    <p class="survey_answer" id="xaiq2" onclick="xaiq(2);">
+        3
+    </p>
+    <p class="survey_answer" id="xaiq3" onclick="xaiq(3);">
+        4
+    </p>
+    <p class="survey_answer" id="xaiq4" onclick="xaiq(4);">
+        5
+    </p>
+</div>
+<div class="col-container">
+    <p style="font-size:16px; text-align:center;">Not at all<br>helpful</p>
+    <p style="font-size:16px; text-align:center; padding-left: 14px;">slightly<br>helpful</p>
+    <p style="font-size:16px; text-align:center; padding-left: 20px;">rather<br>helpful</p>
+    <p style="font-size:16px; text-align:center; padding-left: 20px;">helpful</p>
+    <p style="font-size:16px; text-align:center; padding-left: 22px;">very<br>helpful</p>
+</div>
+<br>
+
+
+
+<form method="POST" action="">
+    {{ form.hidden_tag()}}
+    <input type="hidden" id="xaiq" name="xaiq">
+    {{ form.submit(hidden='true', id='form-submit') }}
+    <button class="btn btn-success btn-block js-button" type="submit" id="submit" disabled="disabled">Confirm and continue</button>
+</form>
+
+<style>
+  .survey_answer{
+    text-align:center;
+    border: 3px solid #0C2340;
+    font-size:34px;
+    border-radius: 50%;
+    margin-right: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 60px;
+    width: 60px;
+
+  }
+
+  .active_xaiq {
+    background-color: #0C2340;
+    color: white;
+  }
+
+</style>
+
+
+{% endblock content %}

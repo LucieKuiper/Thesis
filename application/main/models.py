@@ -164,6 +164,8 @@ class AIUser(db.Model, UserMixin):
     tia2_1 = db.Column(db.String(1), nullable=True, default=None)
     tia2_2 = db.Column(db.String(1), nullable=True, default=None)
 
+    xia_question = db.Column(db.String(1), nullable=True, default=None)
+
     surveySelf1 = db.Column(db.String(1), nullable=True, default=None)
     surveySelf2 = db.Column(db.String(1), nullable=True, default=None)
     surveyOther1 = db.Column(db.String(1), nullable=True, default=None)

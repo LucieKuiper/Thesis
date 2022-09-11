@@ -72,6 +72,7 @@ def questions():
     user = PilotUser.query.filter_by(user_id=current_user.id).first()
     counter = user.task_counter  # counter that tracks at which question the user is
     order = question_order_list[user.question_order]
+    show=counter
     # Check if two attention checks have been answered incorrectly
     #if (counter > 14) and (counter < 28):
     #    wrong_answers = 0
@@ -109,7 +110,7 @@ def questions():
         flash('No answer found, please select an answer', 'danger')
 
     return render_template('questions.html', form=form, context=data_context, question=data_question, answer0=data_answer0,
-                           answer1=data_answer1, answer2=data_answer2, answer3=data_answer3, counter=counter, list=list)
+                           answer1=data_answer1, answer2=data_answer2, answer3=data_answer3, counter=counter, list=list, show=show)
 
 
 # Login for users that previously left

@@ -20,7 +20,7 @@ setTimeout(function() {
         <p style="font-size:30px;"> {{advice}}</p>
 
     </div>
-    <div class="ai-advice">
+    <div class="your-choice">
         <p style="font-size:15px;"><strong>Your choice</strong></p>
         <p style="font-size:30px;"> {{old_answer}}</p>
     </div>
@@ -31,8 +31,47 @@ setTimeout(function() {
 <div class="content">
     <div>
         <h2>Context</h2>
-        <p>{{context}}
-        </p>
+        {% if xai == 1 %}
+            {% if question_number == 0 %}
+                <p>Mayor of Smalltown: <mark>Instituting high taxes on sodas</mark>, <mark>which are currently untaxed in Smalltown</mark>, has been shown in the past year to encourage people to reduce their intake of soda and <mark>live healthier lifestyles</mark>. <mark>Because the effects of such taxes on local businesses have not</mark> yet been determined, though, I believe we should wait before implementing such a tax. <mark>Activist</mark>: Your position is inconsistent with previous actions you have taken. You have implemented many laws that have decreased local businesses' revenues in order to help consumers, so concern for local businesses cannot be the true reason you refuse to pass this law now.</p>
+            {% elif question_number == 1 %}
+                <p><mark>A study of young children's ability to learn foreign languages found that those with parents who read them more than one book per week in their native language were 75% more proficient in the foreign languages that they learned than children whose parents read them one book per week</mark> or <mark>less</mark>. A secondary finding of the study was that children's ability to remember new vocabulary in a second language drops off sharply after the age of 6, <mark>when it becomes 75% more difficult to retain new words learned in the second language</mark>.</p>
+            {% elif question_number == 2 %}
+                <p>A university psychology department received a large donation from a textbook company after <mark>agreeing to use one of the company's books</mark> for a large introductory course. The department chair admitted that the department would not have received the donation if <mark>it used another company's textbook</mark>, <mark>but insisted that the book was chosen solely</mark> for academic reasons. <mark> As proof</mark>, she noted that the department's textbook committee had given that textbook its highest rating.</p>
+            {% elif question_number == 3 %}
+        <p>Physician: In comparing our country with two other countries of roughly the same population size, I found that even though <mark>we face the same dietary</mark>, <mark>bacterial</mark>,<mark> and stress-related causes of ulcers as</mark> <mark>they do</mark>, <mark>prescriptions</mark> for ulcer medicines in all socioeconomic strata are much rarer here than in those two countries. It's clear that we suffer significantly fewer ulcers, per capita, than they do.</p>
+            {% elif question_number == 4 %}
+                <p>Physiologist: <mark>The likelihood of developing osteoporosis</mark> is greatly increased by a deficiency of calcium in the diet. Dairy products usually contain more calcium per serving than do fruits and <mark>vegetables</mark>. Yet in countries where dairy products are rare, <mark>and fruits</mark> and <mark>vegetables are the main source of calcium</mark>, <mark>the incidence of osteoporosis</mark> is much lower than in countries where people consume a great deal of calcium from dairy products.</p>
+            {% elif question_number == 5 %}
+                <p>Radial keratotomy (RK), a surgery that is designed to reshape the cornea so <mark>that light focuses correctly on the retina</mark>, is supposed to make eyeglasses or <mark>contact lenses</mark> that correct for <mark>nearsightedness unnecessary</mark>. Yet a study of patients who have undergone RK shows that some of them still need to wear glasses or contact lenses.</p>
+            {% elif question_number == 7 %}
+        <p>When doctors vaccinate a patient, their intention is to expose him or her to a weakened form of a disease-causing pathogen and <mark>thus to make the patient better able to resist the pathogen</mark> and <mark>less likely to develop a severe form of that disease later</mark>.</p>
+            {% elif question_number == 8 %}
+                <p><mark>Because visual inspection cannot reliably distinguish certain skin discolorations from skin cancers</mark>, dermatologists at clinics have needed to perform tests of skin tissue taken from patients. At Westville Hospital, dermatological diagnostic costs were reduced by the purchase of a new imaging machine that diagnoses skin cancer in such cases as <mark>reliably</mark> as <mark>the tissue tests do</mark>. <mark>Consequently</mark>, <mark>even</mark> though the machine is expensive, a dermatological clinic in Westville is considering buying one to reduce diagnostic costs.</p>
+            {% elif question_number == 9 %}
+        <p><mark>Environment minister</mark>: Because of our concern about global warming, <mark>this country has committed itself to reducing its emissions of carbon dioxide substantially over the</mark> next <mark>ten years</mark>. <mark>Since trees absorb carbon dioxide</mark>, planting large numbers of trees will help us fulfill our commitment.</p>
+            {% elif question_number == 10 %}
+                <p><mark>A certain cultivated herb is one of a group of closely related plants that thrive in soil with high concentrations of metals that are toxic to most other plants</mark>. <mark>Agronomists studying the herb have discovered that it produces large amounts of histidine</mark>, an amino acid that, in test-tube solutions, renders these metals chemically inert. <mark>Possibly</mark>, <mark>therefore</mark>, the herb's high histidine production is what allows it to grow in metal-rich soils, a hypothesis that would gain support if __.</p>
+            {% elif question_number == 12 %}
+        <p>One way to compare chess-playing programs is to compare how they perform with fixed time limits per move. <mark>Given any two computers with which a chess-playing program is compatible</mark>, <mark>and given fixed time limits per move</mark>, <mark>such a program will have a better chance of winning on the faster computer</mark>. This is simply because <mark>the program will be able to examine more possible moves in the time allotted per move</mark>.</p>
+            {% elif question_number == 13 %}
+        <p><mark>Professor Hartley's new book on moral philosophy contains numerous passages that can be found verbatim in an</mark> earlier <mark>published work by Hartley's colleague</mark>, Professor Lawrence. <mark>Therefore</mark>, <mark>in view of the fact that these passages were unattributed in Hartley's book</mark>, <mark>Hartley has been dishonest in not acknowledging the intellectual debt owed to Lawrence</mark>.</p>
+            {% elif question_number == 14 %}
+        <p>Essayist: <mark>Only happiness is intrinsically valuable</mark>; <mark>other things are valuable only</mark> insofar <mark>as they contribute to happiness</mark>. Some philosophers argue that the fact that we do not approve of a bad person's being happy shows that we value happiness only when it is deserved. This supposedly shows that we find something besides <mark>happiness to be intrinsically valuable</mark>. But the happiness people deserve is determined by the amount of happiness they bring to others. Therefore, <mark>__</mark>.</p>
+            {% elif question_number == 15 %}
+                <p>No one in the French department to which Professor Alban belongs is allowed to teach more than one introductory level class in any one term. <mark>Moreover</mark>, the only language classes being taught next <mark>term are advanced ones</mark>. So it is untrue that both of the French classes Professor Alban will be teaching next term will be introductory level classes.</p>
+            {% elif question_number == 16 %}
+                <p>Selena: Asteroid impact on the Earth caused the extinction of the dinosaurs by raising vast clouds of dust, <mark>thus blocking the Sun's rays</mark> and <mark>cooling the planet beyond the capacity of the dinosaurs</mark>, <mark>or perhaps the vegetation that supported them</mark>, <mark>to adapt</mark>. A worldwide dust layer provides evidence of asteroid impact at approximately the correct time, and a huge crater exists on the edge of the Yucatan peninsula in Mexico. Trent: That asteroid crater is not large enough for the requisite amount of dust to have been produced. Besides, the extinction of dinosaur species took many years, not just one or two. So the extinctions must have been due not to asteroid impact on the Earth but <mark>to some other kind of cause</mark>.</p>
+            {% elif question_number == 17 %}
+        <p>Professor Beckstein: American Sign Language is the native language of many North Americans. Therefore, it is not a foreign language, <mark>and for that reason alone</mark>, no student should be permitted to satisfy the university's foreign language requirement by learning it. Professor Sedley: According to your argument, students should not be allowed to satisfy the university's foreign language requirement by learning French or <mark>Spanish either</mark>, <mark>since they too are the native languages of many North Americans</mark>. Yet many students currently satisfy the requirement by studying French or <mark>Spanish</mark>, and it would be ridiculous to begin prohibiting them from doing so.</p>
+
+            {% else %}
+            <p>{{context}}
+            </p>
+            {% endif %}
+        {% else %}
+        <p>{{context}}</p>
+        {% endif %}
     </div>
     <div>
         {% if counter == 4 or counter == 9 or counter == 15 %}
@@ -49,11 +88,31 @@ setTimeout(function() {
         <div class="col-container">
             <strong style="font-size:20px;">A</strong>
             <p class="answer-left" id="answer_A" onclick="changeAnswer(0);" >
+                {% if xai == 1%}
+                    {% if question_number == 7 %}
+                        <mark>In some circumstances</mark>, <mark>firefighters use fire to fight fire by creating an intense explosion very close to an uncontrollable blaze that they wish to extinguish</mark>, <mark>thus momentarily depriving it of the oxygen it needs to continue burning</mark>.
+                    {% elif question_number == 9 %}
+                        When ground is disturbed in the course of planting trees, <mark>more carbon dioxide is released into the atmosphere by rotting organic matter in the soil than the new trees will absorb in ten years</mark>.
+                    {% elif question_number == 12 %}
+                        If a chess-playing program is run on two different computers and is allotted more time to examine possible moves when running on the slow computer than when running on the fast computer, <mark>it will have an equal chance of winning on either computer</mark>.
+                    {% else %}
+                    {{answer0}}
+                    {% endif %}
+                {% else %}
                 {{answer0}}
+                {% endif %}
             </p>
             <strong style="font-size:20px;">B</strong>
             <p class="answer-right" id="answer_B" onclick="changeAnswer(1);">
+                {% if xai == 1%}
+                    {% if question_number == 2 %}
+                        <mark>The members of the textbook committee were favorably influenced toward the textbook by the prospect of their department receiving a large donation. </mark>
+                    {% else %}
+                    {{answer1}}
+                    {% endif %}
+                {% else %}
                 {{answer1}}
+                {% endif %}
             </p>
         </div>
         <div class="col-container">
@@ -63,7 +122,17 @@ setTimeout(function() {
             </p>
             <strong style="font-size:20px;">D</strong>
             <p class="answer-right" id="answer_D" onclick="changeAnswer(3);">
+                {% if xai == 1%}
+                    {% if question_number == 1 %}
+                        Proficient speakers of a second language are likely to have begun learning it before <mark>the age of 6</mark>.
+                    {% elif question_number == 15 %}
+                        The revised tax code does not apply at all to buildings built before <mark>1900</mark>, <mark>and only the first section of the revised code applies to buildings built between 1900</mark> and <mark>1920</mark>, so the revised code does not apply to the Norton Building, since it was built in 1873.
+                    {% else %}
+                        {{answer3}}
+                    {% endif %}
+                {% else %}
                 {{answer3}}
+                {% endif %}
             </p>
         </div>
     </div>
@@ -78,9 +147,13 @@ setTimeout(function() {
 
 <style>
   .content {
-      padding: 0;
+     padding: 0;
      color: #0C2340;
      width: 84%;
+  }
+
+  mark{
+     background-color: #B6D0E2;
   }
 
   .blocks{
@@ -92,6 +165,17 @@ setTimeout(function() {
     width: 15%;
   }
   .ai-advice{
+    text-align:center;
+    background: #B6D0E2;
+    color: #000000;
+    border: 3px solid #B6D0E2;
+    border-radius: 10px;
+    width: 100%;
+    min-height:110px;
+    height: auto;
+    margin-top: 10px;
+  }
+  .your-choice{
     text-align:center;
     background: #0C2340;
     color: #FFFAFA;
