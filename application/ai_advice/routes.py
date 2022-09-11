@@ -2,7 +2,7 @@ from flask import render_template, url_for, redirect, request, flash, Blueprint
 from application import load_data, db
 from flask_login import login_user, current_user, login_required
 from application.main.models import User, AIUser
-from application.main.forms import LoginForm, OtherForm, Survey, ATI, TIA, PT
+from application.main.forms import LoginForm, OtherForm, Survey, ATI, TIA, PT, XAIQ
 from random import randint
 
 ai_advice = Blueprint('ai_advice', __name__, url_prefix='/ai')
@@ -705,7 +705,7 @@ def pt():
 @ai_advice.route("/Q2", methods=['GET', 'POST'])
 @login_required
 def xaiq():
-    form = OtherForm()
+    form = XAIQ()
     user = AIUser.query.filter_by(user_id=current_user.id).first()
     timer = 3000
     # Check if all answers are valid answers

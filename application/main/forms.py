@@ -24,6 +24,10 @@ class Survey(FlaskForm):
     answer = StringField('Answer', validators=[DataRequired()])
     submit = SubmitField('Confirm and Continue')
 
+class XAIQ(FlaskForm):
+    xaiq = StringField('XAIQ', validators=[DataRequired()])
+    submit = SubmitField('Confirm and Continue')
+
 
 class ATI(FlaskForm):
     ati1 = StringField('ATI1', validators=[DataRequired()])
