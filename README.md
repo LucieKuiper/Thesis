@@ -29,7 +29,7 @@ We found that participants who overestimate themselves tend to rely less on the 
 This thesis shows the importance of considering cognitive biases when dealing with human-AI teams and invites more research on how to handle and mitigate the DKE in human-AI decision making.
 
 # Keywords
-Human-AI decision making, Dunning-Kruger effect, self-assessement, appropriate reliance
+Human-AI decision making, Dunning-Kruger effect, self-assessment, appropriate reliance
 
 # Data
 The data of this study can be found on:
