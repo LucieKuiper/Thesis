@@ -4,6 +4,8 @@ from wtforms.validators import DataRequired
 
 
 # Stores answer in survey
+
+#Short form for pilot study
 class ShortForm(FlaskForm):
     answer = StringField('Answer', validators=[DataRequired()])
     confidence = RadioField('Are you confident about your answer?',

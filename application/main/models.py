@@ -8,7 +8,7 @@ from application import login_manager
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-
+# General user table
 class User(db.Model, UserMixin):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
@@ -21,6 +21,7 @@ class User(db.Model, UserMixin):
     ai = db.relationship('AIUser', backref='AI_user', lazy=True)
 
 
+# Pilot table connected to user
 class PilotUser(db.Model, UserMixin):
     __tablename__ = 'pilot_user'
 
@@ -94,7 +95,7 @@ class PilotUser(db.Model, UserMixin):
     def __repr__(self):
         return f"user('{self.username}')"
 
-
+# Table for all data in experiment connected to user
 class AIUser(db.Model, UserMixin):
     __tablename__ = 'AIuser'
     ai_id = db.Column(db.Integer, primary_key=True)

@@ -229,7 +229,7 @@ def questions():
         if user.attention18 != 'C' and user.attention18 is not None:
             wrong_answers += 1
         if wrong_answers >= 2:
-            return redirect("https://app.prolific.co/submissions/complete?cc=C1IW4GQH") # Prolific kickout
+            return redirect(url_for('ai_advice.final')) # Too many wrong answers goes to end of experiment
 
     # Load in questions from data set
     data_context = questions_list.iloc[question_number][0]
@@ -659,7 +659,7 @@ def tia():
                 user.tia2_2 = form.tia2.data
                 db.session.commit()
             if user.XAI == 0:
-                return redirect("https://app.prolific.co/submissions/complete?cc=CZNJ4C8V")
+                return redirect(url_for('ai_advice.final'))
             else:
                 return redirect(url_for('ai_advice.xaiq'))
 
@@ -717,7 +717,7 @@ def xaiq():
         else:
             user.xai_question = form.xaiq.data
             db.session.commit()
-            return redirect("https://app.prolific.co/submissions/complete?cc=CZNJ4C8V")
+            return redirect(url_for('ai_advice.final'))
 
     elif request.method == 'POST':
         flash('Not all answers found, please select an answer for all questions', 'danger')

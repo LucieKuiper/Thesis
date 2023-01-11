@@ -73,22 +73,11 @@ def questions():
     counter = user.task_counter  # counter that tracks at which question the user is
     order = question_order_list[user.question_order]
     show=counter
-    # Check if two attention checks have been answered incorrectly
-    #if (counter > 14) and (counter < 28):
-    #    wrong_answers = 0
-    #    if user.question32 != 'C':
-    #        wrong_answers += 1
-    #    if user.question18 != 'B':
-    #        wrong_answers += 1
-    #    if (counter > 26) and (user.question25 != 'D'):
-    #        wrong_answers += 1
-    #    if wrong_answers >= 2:
-    #        return redirect("https://app.prolific.co/submissions/complete?cc=C11VJG1L")
+
     if counter > 29:
         current_user.pilot_done = True
         db.session.commit()
         return redirect(url_for('pilot.final'))
-    #    return redirect("https://app.prolific.co/submissions/complete?cc=CN9BV0IT")
     # Load in questions from data set
     data_context = questions_list.iloc[order[counter]][0]
     data_question = questions_list.iloc[order[counter]][1]
