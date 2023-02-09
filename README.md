@@ -33,7 +33,7 @@ Human-AI decision making, Dunning-Kruger effect, self-assessment, appropriate re
 
 # Data
 The data of this study can be found on:
-https://osf.io/mhsr5/?view_only=4335f01fc3c248f6959895505aaae2b3
+ https://github.com/RichardHGL/CHI2023_DKE
 
 # Dependencies
 The requirements can also be found in the requirements.txt
